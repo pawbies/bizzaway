@@ -1,4 +1,5 @@
 default:
+	npx tailwindcss -i static/src_css.css
 	python manage.py runserver
 
 tailwind:

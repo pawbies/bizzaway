@@ -4,11 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pizzaway</title>
     <link rel="stylesheet" href="{% static 'output.css' %}">
 </head>
 <body>
-    <h1 class="text-bl-500 text">Hi mom</h1>
-    <p>Welcome to our pizzeria</p>
+    <header>
+    <img src="{% static 'img/LOGO.png' %}" style="height: 15%; width: 15%;" alt="Pizzaway-Logo">
+    <p class="text-blue-500">Welcome to our pizzeria</p>
+
+    <a href="{% url 'order' %}">Bestellen</a>
+    <a href="{% url 'emp_index' %}">Mitarbeiter</a>
+    </header>
+
+    <footer>
+        <a href="{% url 'contact' %}">Kontakt</a>
+        <a href="{% url 'imprint' %}">Impressum</a>
+        <a href="{% url 'privacy' %}">Datenschutzerklärung</a>
+    </footer>
 </body>
 </html>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,5 +8,8 @@
 </head>
 <body>
     <h1>Welcome Dear Employee</h1>
+    <a href="{% url 'index' %}">
+        <img src="{% static 'img/LOGO.png' %}" style="height: 15%; width: 15%;" alt="Pizzaway-Logo">
+    </a>
 </body>
 </html>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,20 @@
     <title>Datenschutz</title>
 </head>
 <body>
-    Datenschutz
+    <h1>Datenschutz</h1>
+    <header>
+        <a href="{% url 'index' %}">
+            <img src="{% static 'img/LOGO.png' %}" style="height: 15%; width: 15%;" alt="Pizzaway-Logo">
+        </a>
+
+        <a href="{% url 'order' %}">Bestellen</a>
+        <a href="{% url 'emp_index' %}">Mitarbeiter</a>
+        </header>
+        
+        <footer>
+            <a href="{% url 'contact' %}">Kontakt</a>
+            <a href="{% url 'imprint' %}">Impressum</a>
+            <a href="{% url 'privacy' %}">Datenschutzerklärung</a>
+        </footer>
 </body>
 </html>

@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello World")
+    return render(request, "emp_index.html", {})
 
 def login(request):
-    return HttpResponse("Hello World")
+    return render(request, "login.html", {})
 
 

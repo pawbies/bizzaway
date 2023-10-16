@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    orders_cooked = models.IntegerField()
+    orders_cooked = models.IntegerField(default=0)
 
 
 

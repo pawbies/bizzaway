@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    orders_cooked = models.IntegerField()
+    orders_cooked = models.IntegerField(default=0)
 
 
 
@@ -19,4 +19,4 @@ def create_employee(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_employee(sender, instance, **kwargs):
-    instance.profile.save()
+    instance.employee.save()

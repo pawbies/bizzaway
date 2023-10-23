@@ -12,6 +12,28 @@
         <img src="{% static 'img/LOGO.png' %}" style="height: 15%; width: 15%;" alt="Pizzaway-Logo">
     </a>
 
-    {% if user.is_authenticated %} Hello, {{ user.username }}. {% endif %}
+    Hello, {{ user.username }}.
+
+    <h1>Pending Orders:</h1>
+    <ul>
+    {% for order in orders %}
+    <hr>
+    <li>
+        <form action="{% url 'remove_order' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="order_id" value="{{  order.id  }}">
+            <input type="hidden" name="emp_id" value="{{  emp.id  }}">
+            <h2>{{  order.customer  }}</h2>
+            <p>{{  order.notes  }}</p>
+            <ul>
+            {% for pizza in order.pizzas.all %}
+            <li>{{  pizza  }}</li>
+            {% endfor %}
+            </ul>
+            <input type="submit" value="Finshed">
+        </form>
+    </li>
+    {% endfor %}
+    </ul>
 </body>
 </html>

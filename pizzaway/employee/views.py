@@ -7,11 +7,16 @@ from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth import authenticate as django_authenticate
 
+from webinterface.models import Order
+from .models import Employee
+
 # Create your views here.
 
 @login_required(redirect_field_name="login")
 def index(request):
-    return render(request, "emp_index.html", {})
+    pizzas = Order.objects.all()
+    employee = Employee.objects.get(user=request.user)
+    return render(request, "emp_index.html", {"orders": pizzas, "emp": employee})
 
 def login_page(request):
     return render(request, "login.html", {})
@@ -25,10 +30,10 @@ def login(request):
     if user is not None:
         django_login(request, user)
         return HttpResponseRedirect(reverse("emp_index"))
-    
     else:
         return HttpResponse("User doesn't exist")
-    
+
+
 def logout(request):
     django_logout(request)
     return HttpResponse("Loged out")

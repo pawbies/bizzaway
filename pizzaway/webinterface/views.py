@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponseRedirect
 from django.http.request import HttpRequest
 from django.urls import reverse
 
 from .models import Order, Pizza
+from employee.models import Employee
 
 # Create your views here.
 
@@ -36,6 +37,9 @@ def add_order(request: HttpRequest):
 
 
 def remove_order(request: HttpRequest):
-    order = get_object_or_404(Order, id=request.POST.get("id"))
+    order = get_object_or_404(Order, id=request.POST.get("order_id"))
     order.delete()
-    return HttpResponseRedirect(reverse("index", current_app="webinterface"))
+    employee = get_object_or_404(Employee, id=request.POST.get("emp_id"))
+    employee.orders_cooked += 1
+    employee.save()
+    return HttpResponseRedirect(reverse("emp_index"))

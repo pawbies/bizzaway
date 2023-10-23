@@ -4,6 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /*
+        header{
+            background-color: yellow;
+        }
+        */
+    </style>
     <title>Impressum</title>
 </head>
 <body>
@@ -16,7 +23,17 @@
         <a href="{% url 'order' %}">Bestellen</a>
         <a href="{% url 'emp_index' %}">Mitarbeiter</a>
         </header>
-        
+        <pre>
+        • Firmawortlaut Pizzaway
+        • Unternehmensgegenstand Pizzeria 
+        • Firmensitz Sitz: 4170 Haslach
+        • volle geografische Anschrift Rohrbach Linzer-Straße 8 | Austria 
+        • Kontaktdaten (Tel, E-Mail) Tel: +43 XXX XXXX 
+        E-Mail: Alexander.Fuchs@tfs-haslach.at 
+            Elias.Schinkinger@tfs-haslach.at
+        Sie können allfällige Beschwerde auch an 
+        die oben angegebene E-Mail-Adresse richten.
+        </pre>
         <footer>
             <a href="{% url 'contact' %}">Kontakt</a>
             <a href="{% url 'imprint' %}">Impressum</a>

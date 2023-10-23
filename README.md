@@ -23,7 +23,6 @@ Dooklin who is also very cool is the other boy working on this thing
 The Basic idea is:   
     - cool backend with django   
     - even cooler frontend using html with the django templates and tailwindcss for the design   
-    - i might make a easter egg with c++ but that's a secret i kinda wanna do i game with sdl and port it to wasm   
 
 
 anyway, this stuff better get us a good grade or else i'll cry   

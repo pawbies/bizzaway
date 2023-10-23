@@ -11,5 +11,7 @@
     <a href="{% url 'index' %}">
         <img src="{% static 'img/LOGO.png' %}" style="height: 15%; width: 15%;" alt="Pizzaway-Logo">
     </a>
+
+    {% if user.is_authenticated %} Hello, {{ user.username }}. {% endif %}
 </body>
 </html>

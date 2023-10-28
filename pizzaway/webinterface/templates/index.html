@@ -6,20 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizzaway</title>
     <link rel="stylesheet" href="{% static 'output.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-    <img src="{% static 'img/LOGO.png' %}" style="height: 15%; width: 15%;" alt="Pizzaway-Logo">
-    <p class="text-blue-500">Welcome to our pizzeria</p>
+<body class="flex flex-col gap-3 h-screen w-screen bg-yellow-100">
+    <header class="bg-red-500 text-white rounded-t-lg h-1/4 flex flex-row justify-around items-center">
+        <img src="{% static 'img/LOGO.png' %}" alt="Pizzaway-Logo" class="h-full">
+        <p class="text-xl font-bold">Welcome to our pizzeria</p>
 
-    <a href="{% url 'order' %}">Bestellen</a>
-    <a href="{% url 'emp_index' %}">Mitarbeiter</a>
+        <a href="{% url 'order' %}" class="text-xl hover:underline transition duration-300 ease-in-out">Order</a>
+        <a href="{% url 'emp_index' %}" class="text-xl hover:underline transition duration-300 ease-in-out">Employees</a>
     </header>
 
-    <footer>
-        <a href="{% url 'contact' %}">Kontakt</a>
-        <a href="{% url 'imprint' %}">Impressum</a>
-        <a href="{% url 'privacy' %}">Datenschutzerklärung</a>
+    <main class="flex flex-grow max-h-fit overflow-y-auto bg-yellow-200">
+        <div id="picture" class="aspect-square">
+            <img src="" alt="pizza image">
+        </div>
+
+        <div id="pizza" class="p-4 rounded-lg overflow-y-auto flex-1">
+            <h1 class="text-3xl font-bold text-red-500 mb-4">Pizzas</h1>
+            <ul class="space-y-4">
+                {% for pizza in pizzas %}
+                <li>
+                    <h2 class="text-xl font-semibold">{{ pizza.name }}</h2>
+                    <ul class="flex flex-wrap justify-center space-x-4">
+                        {% for ingredient in pizza.ingredients.all %}
+                            <li class="border border-red-500 rounded-md px-2 py-1 text-red-500">{{ ingredient }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <hr class="my-4 border-t border-gray-400">
+                {% endfor %}
+            </ul>
+        </div>        
+    </main>
+
+    <footer class="bg-red-500 text-white rounded-b-lg sticky bottom-0 p-4 flex justify-center space-x-4">
+        <a href="{% url 'contact' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Contact</a>
+        <a href="{% url 'imprint' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Imprint</a>
+        <a href="{% url 'privacy' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Privacy Policy</a>
     </footer>
 </body>
 </html>

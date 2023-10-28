@@ -11,7 +11,7 @@ class Ingredient(models.Model):
 
 class Pizza(models.Model):
     name = models.CharField(max_length=20, primary_key=True, blank=False, null=False)
-    Ingredients = models.ManyToManyField(Ingredient, blank=False)
+    ingredients = models.ManyToManyField(Ingredient, blank=False)
 
     def __str__(self):
         return self.name

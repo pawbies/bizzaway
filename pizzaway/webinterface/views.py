@@ -9,7 +9,7 @@ from employee.models import Employee
 # Create your views here.
 
 def index(request: HttpRequest):
-    return render(request, "index.html", {})
+    return render(request, "index.html", {"pizzas": Pizza.objects.all()})
 
 def order(request: HttpRequest):
     return render(request, "order.html", {})

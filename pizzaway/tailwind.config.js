@@ -4,12 +4,14 @@ module.exports = {
     content: ['./**/*.html'],
   },
   theme: {
-    // Your theme configuration
+    extend: {
+      colors: {
+        'pizza-red': '#FF0000',
+        'pizza-yellow': '#FFD700',
+        'light-pizza-yellow': '#FFEDA4',
+      },
+    },
   },
-  variants: {
-    // Your variants configuration
-  },
-  plugins: [
-    // Your plugins
-  ],
+  variants: {},
+  plugins: [],
 }

@@ -6,44 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizzaway</title>
     <link rel="stylesheet" href="{% static 'out.css' %}">
-    <!--<script src="https://cdn.tailwindcss.com"></script>-->
 </head>
-<body class="flex flex-col gap-3 h-screen w-screen bg-yellow-100">
-    <header class="bg-red-500 text-white rounded-t-lg h-1/4 flex flex-row justify-around items-center">
-        <img src="{% static 'img/LOGO.png' %}" alt="Pizzaway-Logo" class="h-full">
-        <p class="text-xl font-bold">Welcome to our pizzeria</p>
+<body class="flex flex-col gap-3 min-h-screen bg-light-pizza-yellow">
 
-        <a href="{% url 'order' %}" class="text-xl hover:underline transition duration-300 ease-in-out">Order</a>
-        <a href="{% url 'emp_index' %}" class="text-xl hover:underline transition duration-300 ease-in-out">Employees</a>
+
+    <header class="bg-pizza-red text-white rounded-t-lg flex flex-col md:flex-row justify-around items-center p-4">
+        <img src="{% static 'img/LOGO.png' %}" alt="Pizzaway-Logo" class="h-full w-1/2 md:w-auto transition-transform transform hover:scale-105 md:scale-100">
+        <p class="text-xl md:text-2xl lg:text-3xl font-bold">Welcome to our pizzeria</p>
+        <div class="flex space-x-4 mt-2 md:mt-0">
+            <a href="{% url 'order' %}" class="text-lg hover:underline transition duration-300 ease-in-out">Order</a>
+            <a href="{% url 'emp_index' %}" class="text-lg hover:underline transition duration-300 ease-in-out">Employees</a>
+        </div>
     </header>
 
-    <main class="flex flex-grow max-h-fit overflow-y-auto bg-yellow-200">
-        <div id="picture" class="aspect-square">
+
+    <main class="flex flex-col flex-grow bg-pizza-yellow md:flex-row">
+        <div id="picture" class="aspect-square md:w-1/2">
             <img src="" alt="pizza image">
         </div>
 
-        <div id="pizza" class="p-4 rounded-lg overflow-y-auto flex-1">
-            <h1 class="text-3xl font-bold text-red-500 mb-4">Pizzas</h1>
+        <div id="pizza" class="p-4 rounded-lg md:w-1/2">
+            <h1 class="text-3xl font-bold text-pizza-red mb-4 text-center md:text-left">Pizzas</h1>
+
             <ul class="space-y-4">
                 {% for pizza in pizzas %}
                 <li>
-                    <h2 class="text-xl font-semibold">{{ pizza.name }}</h2>
+                    <h2 class="text-xl font-semibold text-center md:text-left">{{ pizza.name }}</h2>
+
                     <ul class="flex flex-wrap justify-center space-x-4">
                         {% for ingredient in pizza.ingredients.all %}
-                            <li class="border border-red-500 rounded-md px-2 py-1 text-red-500">{{ ingredient }}</li>
+                            <li class="relative group">
+                                
+                                <span class="border border-pizza-red rounded-md px-2 py-1 text-pizza-red cursor-pointer hover:bg-pizza-red hover:text-white group-hover:bg-pizza-red group-hover:text-white">
+                                    {{ ingredient }}
+                                </span>
+                                
+
+
+                                <div class="absolute left-1/2 transform -translate-x-1/2 top-8 opacity-0 group-hover:opacity-80 transition-opacity duration-300 ease-in-out bg-gray-800 text-white py-4 px-6 rounded-md text-sm shadow-md pointer-events-none z-50">
+                                    <strong class="block text-xl mb-2">{{ ingredient.name }}</strong>
+                                    <p>kcal: {{ ingredient.get_calories }}</p>
+                                    <p>c: {{ ingredient.get_carbs }}</p>
+                                    <p>p: {{ ingredient.get_protein }}</p>
+                                    <p>f: {{ ingredient.get_fat }}</p>
+                                </div>
+                                
+                                
+
+                                
+                                
+                            </li>
                         {% endfor %}
                     </ul>
+                    
+                    <!-- Display Nutritional Information with Styling -->
+                    <div class="mt-2">
+                        <p><strong>Calories:</strong> {{ pizza.get_calories }}</p>
+                        <p><strong>Carbs:</strong> {{ pizza.get_carbs }}g</p>
+                        <p><strong>Protein:</strong> {{ pizza.get_protein }}g</p>
+                        <p><strong>Fat:</strong> {{ pizza.get_fat }}g</p>
+                    </div>
+                    
                 </li>
                 <hr class="my-4 border-t border-gray-400">
                 {% endfor %}
             </ul>
+
+            
         </div>        
     </main>
 
-    <footer class="bg-red-500 text-white rounded-b-lg sticky bottom-0 p-4 flex justify-center space-x-4">
+
+    <footer class="bg-pizza-red text-white rounded-b-lg sticky bottom-0 p-4 flex justify-center space-x-4">
         <a href="{% url 'contact' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Contact</a>
         <a href="{% url 'imprint' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Imprint</a>
         <a href="{% url 'privacy' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Privacy Policy</a>
     </footer>
+
+
 </body>
 </html>

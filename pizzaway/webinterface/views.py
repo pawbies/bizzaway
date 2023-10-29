@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, Http404, HttpResponse
 from django.http.request import HttpRequest
 from django.urls import reverse
 
@@ -28,10 +28,20 @@ def add_order(request: HttpRequest):
     name = request.POST.get("customer")
     email = request.POST.get("email")
     notes = request.POST.get("notes")
+    pizzas = request.POST.getlist("selected_pizzas[]")
+
     order = Order(customer=name, email=email, notes=notes)
     order.save()
-    order.pizzas.add(get_object_or_404(Pizza, name=request.POST.get("pizza")))
-    return HttpResponseRedirect(reverse("index", current_app="webinterface"))
+
+    for pizza in pizzas:
+        try:
+            p = get_object_or_404(Pizza, name=pizza)
+            order.pizzas.add(p)
+        except Http404:
+            order.delete()
+            return HttpResponse(f"{pizza} was not found in database")
+    
+    return HttpResponseRedirect(reverse("index"))
 
 
 def remove_order(request: HttpRequest):

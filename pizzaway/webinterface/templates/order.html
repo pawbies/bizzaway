@@ -26,7 +26,7 @@
           {% for pizza in pizzas %}
             <div class="border border-gray-200 p-4 rounded-md hover:shadow-lg transition duration-300 ease-in-out">
               <label class="flex items-center space-x-2">
-                <input type="checkbox" name="selected_pizzas" value="{{ pizza.id }}">
+                <input type="checkbox" name="selected_pizzas[]" value="{{ pizza.name }}">
                 <span class="text-lg font-semibold">{{ pizza.name }}</span>
                 <span class="text-gray-600 text-sm">€{{ pizza.price }}</span>
               </label>
@@ -57,9 +57,10 @@
 
   <script>
     // JavaScript to calculate the total price of selected pizzas in Euros (€)
-    const checkboxes = document.getElementsByName('selected_pizzas');
+    const checkboxes = document.getElementsByName('selected_pizzas[]');
     const totalPriceDisplay = document.getElementById('total-price');
-  
+
+
     checkboxes.forEach((checkbox) => {
       checkbox.addEventListener('change', () => {
         let totalSelectedPrice = 0;

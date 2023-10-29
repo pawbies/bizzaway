@@ -5,35 +5,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css">
 </head>
-<body>
-    <h1>Welcome Dear Employee</h1>
-    <a href="{% url 'index' %}">
-        <img src="{% static 'img/LOGO.png' %}" style="height: 15%; width: 15%;" alt="Pizzaway-Logo">
-    </a>
+<body class="bg-gray-100">
 
-    Hello, {{ user.username }}.
 
-    <h1>Pending Orders:</h1>
-    <ul>
-    {% for order in orders %}
-    <hr>
-    <li>
-        <form action="{% url 'remove_order' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="order_id" value="{{  order.id  }}">
-            <input type="hidden" name="emp_id" value="{{  emp.id  }}">
-            <h2>{{  order.customer  }}</h2>
-            <p>{{  order.notes  }}</p>
-            <ul>
-            {% for pizza in order.pizzas.all %}
-            <li>{{  pizza  }}</li>
-            {% endfor %}
-            </ul>
-            <input type="submit" value="Finshed">
-        </form>
-    </li>
-    {% endfor %}
-    </ul>
+    <header class="bg-blue-800 text-white p-4">
+        <div class="flex justify-between items-center">
+            <div class="text-2xl font-semibold">Welcome, {{ user.username }}</div>
+            <div class="flex space-x-4">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'img/LOGO.png' %}" alt="Pizzaway-Logo" class="w-20 h-20">
+                </a>
+                <a href="{% url 'logout' %}" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 flex items-center justify-center">Sign Out</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="flex min-h-screen">
+            <!-- Sidebar -->
+            <div class="w-1/4 p-4">
+                <h2 class="text-xl font-semibold mb-4">Leaderboard</h2>
+                <ul class="space-y-2">
+                    {% for employee in employees|dictsortreversed:"orders_cooked" %}
+                    <li class="flex justify-between items-center">
+                        <span>{{ employee.user.username }}</span>
+                        <span class="text-gray-300">{{ employee.orders_cooked }} orders cooked</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Content -->
+            <div class="w-3/4 p-4 bg-white flex-grow">
+                <h1 class="text-3xl font-semibold mb-4">Pending Orders</h1>
+                <div class="overflow-y-auto">
+                    <ul class="space-y-4">
+                        {% for order in orders %}
+                        <li class="border rounded p-4 shadow-md">
+                            <form action="{% url 'remove_order' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="order_id" value="{{ order.id }}">
+                                <input type="hidden" name="emp_id" value="{{ emp.id }}">
+                                <h2 class="text-xl font-semibold">{{ order.customer }}</h2>
+                                <p class="text-gray-600">{{ order.notes }}</p>
+                                <ul class="list-disc pl-8">
+                                    {% for pizza in order.pizzas.all %}
+                                    <li>{{ pizza }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                                    Mark as Finished
+                                </button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

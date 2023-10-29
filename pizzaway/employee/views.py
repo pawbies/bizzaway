@@ -16,7 +16,7 @@ from .models import Employee
 def index(request):
     pizzas = Order.objects.all()
     employee = Employee.objects.get(user=request.user)
-    return render(request, "emp_index.html", {"orders": pizzas, "emp": employee})
+    return render(request, "emp_index.html", {"orders": pizzas, "emp": employee, "employees": Employee.objects.all()})
 
 def login_page(request):
     return render(request, "login.html", {})
@@ -24,16 +24,16 @@ def login_page(request):
 
 
 def login(request):
-    username = request.POST["username"]
-    password = request.POST["password"]
+    username = request.POST.get("username")
+    password = request.POST.get("password")
     user = django_authenticate(request, username=username, password=password)
     if user is not None:
         django_login(request, user)
         return HttpResponseRedirect(reverse("emp_index"))
-    else:
-        return HttpResponse("User doesn't exist")
+    
+    return HttpResponse("User doesn't exist")
 
 
 def logout(request):
     django_logout(request)
-    return HttpResponse("Loged out")
+    return HttpResponseRedirect(reverse("login_page"))

@@ -1,11 +1,17 @@
 {% extends "base.html" %}
+{% load static%}
 
 {% block title %}Main page{% endblock %}
 
+{% block extra %}
+    <script src="{% static 'show_pizza.js' %}"></script>
+{% endblock %}
+
 {% block content %}
-<div id="picture" class="aspect-square md:w-1/2">
-    <img src="" alt="pizza image">
+<div id="picture" class="md:w-1/2 h-auto rounded-lg flex items-center justify-center">
+    <img src="{% static 'img/initial.png' %}" alt="pizza image" id="image" class="w-full rounded-sm m-4">
 </div>
+
 
 <div id="pizza" class="p-4 rounded-lg md:w-1/2">
     <h1 class="text-3xl font-bold text-pizza-red mb-4 text-center md:text-left">Pizzas</h1>
@@ -13,7 +19,7 @@
     <ul class="space-y-4">
         {% for pizza in pizzas %}
         <li>
-            <h2 class="text-xl font-semibold text-center md:text-left">{{ pizza.name }}</h2>
+            <h2 class="text-xl font-semibold text-center md:text-left" onclick="showImage('{{  pizza.image.url  }}')">{{ pizza.name }}</h2>
 
             <ul class="flex flex-wrap justify-center space-x-4">
                 {% for ingredient in pizza.ingredients.all %}

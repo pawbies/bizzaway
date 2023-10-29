@@ -12,7 +12,7 @@ def index(request: HttpRequest):
     return render(request, "index.html", {"pizzas": Pizza.objects.all()})
 
 def order(request: HttpRequest):
-    return render(request, "order.html", {})
+    return render(request, "order.html", {"pizzas": Pizza.objects.all()})
 
 def contact(request: HttpRequest):
     return render(request, "contact.html", {})
@@ -22,8 +22,6 @@ def imprint(request: HttpRequest):
 
 def privacy(request: HttpRequest):
     return render(request, "privacy.html", {})
-
-
 
 
 def add_order(request: HttpRequest):

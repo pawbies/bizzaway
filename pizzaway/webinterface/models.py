@@ -27,6 +27,8 @@ class Ingredient(models.Model):
 class Pizza(models.Model):
     name = models.CharField(max_length=20, primary_key=True, blank=False, null=False)
     ingredients = models.ManyToManyField(Ingredient, blank=False)
+    image = models.ImageField(upload_to='pizzas/', null=False, blank=False, default="none.png")
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def get_calories(self):
         total_calories = 0

@@ -1,2 +1,2 @@
 default:
-	g++ src/*.cpp -o game -lraylib
+	g++ src/*.cpp -o build/game -lraylib

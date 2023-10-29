@@ -1,43 +1,19 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /*
-        header{
-            background-color: yellow;
-        }
-        */
-    </style>
-    <title>Impressum</title>
-</head>
-<body>
-    <h1>Impressum</h1>
-    <header>
-        <a href="{% url 'index' %}">
-            <img src="{% static 'img/LOGO.png' %}" style="height: 15%; width: 15%;" alt="Pizzaway-Logo">
-        </a>
+{% extends "base.html" %}
 
-        <a href="{% url 'order' %}">Bestellen</a>
-        <a href="{% url 'emp_index' %}">Mitarbeiter</a>
-        </header>
-        <pre>
-        • Firmawortlaut Pizzaway
-        • Unternehmensgegenstand Pizzeria 
-        • Firmensitz Sitz: 4170 Haslach
-        • volle geografische Anschrift Rohrbach Linzer-Straße 8 | Austria 
-        • Kontaktdaten (Tel, E-Mail) Tel: +43 XXX XXXX 
-        E-Mail: Alexander.Fuchs@tfs-haslach.at 
-            Elias.Schinkinger@tfs-haslach.at
-        Sie können allfällige Beschwerde auch an 
-        die oben angegebene E-Mail-Adresse richten.
-        </pre>
-        <footer>
-            <a href="{% url 'contact' %}">Kontakt</a>
-            <a href="{% url 'imprint' %}">Impressum</a>
-            <a href="{% url 'privacy' %}">Datenschutzerklärung</a>
-        </footer>
-</body>
-</html>
+{% block title %}Imprint{% endblock %}
+
+{% block content %}
+
+<pre>
+• Firmawortlaut Pizzaway
+• Unternehmensgegenstand Pizzeria 
+• Firmensitz Sitz: 4170 Haslach
+• volle geografische Anschrift Rohrbach Linzer-Straße 8 | Austria 
+• Kontaktdaten (Tel, E-Mail) Tel: +43 XXX XXXX 
+E-Mail: Alexander.Fuchs@tfs-haslach.at 
+    Elias.Schinkinger@tfs-haslach.at
+Sie können allfällige Beschwerde auch an 
+die oben angegebene E-Mail-Adresse richten.
+</pre>
+
+{% endblock %}

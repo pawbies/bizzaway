@@ -1,22 +1,9 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datenschutz</title>
-</head>
-<body>
-    <h1>Datenschutz</h1>
-    <header>
-        <a href="{% url 'index' %}">
-            <img src="{% static 'img/LOGO.png' %}" style="height: 15%; width: 15%;" alt="Pizzaway-Logo">
-        </a>
+{% extends "base.html" %}
 
-        <a href="{% url 'order' %}">Bestellen</a>
-        <a href="{% url 'emp_index' %}">Mitarbeiter</a>
-        </header>
-        <pre>
+{% block title %}Privacy Policy{% endblock %}
+
+{% block content %}
+<pre>
             Datenschutzerklärung
 
 Wir verarbeiten Ihre personenbezogenen Daten, die unter folgende Datenkategorien1 fallen:
@@ -45,11 +32,6 @@ Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Ei
 Dafür wenden Sie sich an uns. Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt
 oder Ihre datenschutzrechtlichen Ansprüche sonst in einer Weise verletzt worden sind, können Sie sich bei der Aufsichtsbehörde beschweren.
 In Österreich ist die Datenschutzbehörde zuständig.
-            </pre>
-        <footer>
-            <a href="{% url 'contact' %}">Kontakt</a>
-            <a href="{% url 'imprint' %}">Impressum</a>
-            <a href="{% url 'privacy' %}">Datenschutzerklärung</a>
-        </footer>
-</body>
-</html>
+</pre>
+
+{% endblock %}

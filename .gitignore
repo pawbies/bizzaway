@@ -320,3 +320,5 @@ cython_debug/
 
 #own things:
 out.css
+build/
+game

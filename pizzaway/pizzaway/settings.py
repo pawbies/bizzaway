@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'webinterface.apps.WebinterfaceConfig',
     'employee.apps.EmployeeConfig',
+    'game.apps.GameConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

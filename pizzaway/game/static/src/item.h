@@ -16,7 +16,7 @@ enum class Type
     DNA = 5,
     Water = 6,
     Cow = 7,
-    Gras = 8,
+    Grass = 8,
     Milk = 9,
     WashingMachine = 10,
     Cheese = 11,
@@ -44,17 +44,15 @@ enum class Type
 class Item
 {
 private:
-    SDL_Texture *m_texture;
     SDL_Rect m_dst;
     Type m_type;
 
 public:
-    Item(const char *p_texturePath, int p_x, int p_y, int p_w, int p_h, Type p_type, SDL_Renderer *p_renderer);
+    Item(int p_x, int p_y, int p_w, int p_h, Type p_type);
     Item();
     ~Item();
 
     SDL_Rect *getDst();
-    SDL_Texture *getTexture();
     Type getType();
 
 

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -19,6 +20,7 @@ private:
     SDL_Point m_offset;
     Item *m_itemToMove;
     std::vector<Item> m_items;
+    std::map<Type, SDL_Texture*> m_textures;
 
     Item combineItems(Item &item, Item &otherItem);
 

@@ -1,7 +1,7 @@
 #include "game.h"
 
 Game::Game(int p_width, int p_height, const char *p_title)
-    : m_running(true), m_window(nullptr), m_renderer(nullptr), m_mousePressed(false), m_mousePos(), m_offset(), m_itemToMove(nullptr), m_items()
+    : m_running(true), m_window(nullptr), m_renderer(nullptr), m_mousePressed(false), m_mousePos(), m_offset(), m_itemToMove(nullptr), m_items(), m_textures()
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
@@ -20,8 +20,60 @@ Game::Game(int p_width, int p_height, const char *p_title)
 
     SDL_GetMouseState(&m_mousePos.x, &m_mousePos.y);
 
-    m_items.push_back(Item("res/pizza.png", 200, 200, 100, 100, Type::Pizza, m_renderer));
-    m_items.push_back(Item("res/pizza.png", 100, 200, 100, 100, Type::Pizza, m_renderer));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Pot));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Seed));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Blender));
+    m_items.push_back(Item(200, 200, 100, 100, Type::DNA));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Water));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Grass));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Wheat));
+    m_items.push_back(Item(200, 200, 100, 100, Type::WashingMachine));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Pickaxe));
+    m_items.push_back(Item(200, 200, 100, 100, Type::MetalMine));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Bricks));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Glue));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Chainsaw));
+    m_items.push_back(Item(200, 200, 100, 100, Type::Fire));
+
+    m_textures.insert_or_assign(Type::Undefined, nullptr);
+    m_textures.insert_or_assign(Type::Failed, nullptr);
+    m_textures.insert_or_assign(Type::Pot, IMG_LoadTexture(m_renderer, "res/pot.png"));
+    m_textures.insert_or_assign(Type::Seed, IMG_LoadTexture(m_renderer, "res/seed.png"));
+    m_textures.insert_or_assign(Type::Blender, IMG_LoadTexture(m_renderer, "res/blender.png"));
+    m_textures.insert_or_assign(Type::Tomato, IMG_LoadTexture(m_renderer, "res/tomato.png"));
+    m_textures.insert_or_assign(Type::Sauce, IMG_LoadTexture(m_renderer, "res/sauce.png"));
+    m_textures.insert_or_assign(Type::DNA, IMG_LoadTexture(m_renderer, "res/dna.png"));
+    m_textures.insert_or_assign(Type::Water, IMG_LoadTexture(m_renderer, "res/water.png"));
+    m_textures.insert_or_assign(Type::Cow, IMG_LoadTexture(m_renderer, "res/cow.png"));
+    m_textures.insert_or_assign(Type::Grass, IMG_LoadTexture(m_renderer, "res/grass.png"));
+    m_textures.insert_or_assign(Type::Milk, IMG_LoadTexture(m_renderer, "res/milk.png"));
+    m_textures.insert_or_assign(Type::WashingMachine, IMG_LoadTexture(m_renderer, "res/washingmachine.png"));
+    m_textures.insert_or_assign(Type::Cheese, IMG_LoadTexture(m_renderer, "res/cheese.png"));
+    m_textures.insert_or_assign(Type::Wheat, IMG_LoadTexture(m_renderer, "res/wheat.png"));
+    m_textures.insert_or_assign(Type::Flour, IMG_LoadTexture(m_renderer, "res/flour.png"));
+    m_textures.insert_or_assign(Type::Dough, IMG_LoadTexture(m_renderer, "res/dough.png"));
+    m_textures.insert_or_assign(Type::DoughWithSauce, IMG_LoadTexture(m_renderer, "res/doughwithsauce.png"));
+    m_textures.insert_or_assign(Type::Base, IMG_LoadTexture(m_renderer, "res/base.png"));
+    m_textures.insert_or_assign(Type::MetalMine, IMG_LoadTexture(m_renderer, "res/metalmine.png"));
+    m_textures.insert_or_assign(Type::Pickaxe, IMG_LoadTexture(m_renderer, "res/pickaxe.png"));
+    m_textures.insert_or_assign(Type::Knife, IMG_LoadTexture(m_renderer, "res/knife.png"));
+    m_textures.insert_or_assign(Type::Meat, IMG_LoadTexture(m_renderer, "res/meat.png"));
+    m_textures.insert_or_assign(Type::RawPizza, IMG_LoadTexture(m_renderer, "res/rawpizza.png"));
+    m_textures.insert_or_assign(Type::Bricks, IMG_LoadTexture(m_renderer, "res/bricks.png"));
+    m_textures.insert_or_assign(Type::Glue, IMG_LoadTexture(m_renderer, "res/glue.png"));
+    m_textures.insert_or_assign(Type::EmptyOven, IMG_LoadTexture(m_renderer, "res/emptyoven.png"));
+    m_textures.insert_or_assign(Type::Tree, IMG_LoadTexture(m_renderer, "res/tree.png"));
+    m_textures.insert_or_assign(Type::Chainsaw, IMG_LoadTexture(m_renderer, "res/chainsaw.png"));
+    m_textures.insert_or_assign(Type::Wood, IMG_LoadTexture(m_renderer, "res/wood.png"));
+    m_textures.insert_or_assign(Type::OvenWithWood, IMG_LoadTexture(m_renderer, "res/ovenwithpizza.png"));
+    m_textures.insert_or_assign(Type::Fire, IMG_LoadTexture(m_renderer, "res/fire.png"));
+    m_textures.insert_or_assign(Type::Pizza, IMG_LoadTexture(m_renderer, "res/pizza.png"));
+
+    for (std::pair<Type, SDL_Texture*> pair : m_textures)
+    {
+        if (pair.second == nullptr)
+            std::cerr << "Failed to load image for " << (int)pair.first << std::endl;
+    }
 }
 
 Game::~Game() {}
@@ -30,6 +82,14 @@ Game::~Game() {}
 
 Item Game::combineItems(Item &item, Item &otherItem)
 {
+    Type t1 = item.getType();
+    Type t2 = otherItem.getType();
+
+    switch (t1)
+    {
+        case Type::Undefined: break;
+    }
+
     return Item();
 }
 
@@ -39,7 +99,7 @@ void Game::draw()
     //std::cout << m_items[0].getDst()->y << std::endl;
     SDL_RenderClear(m_renderer);
     for (Item &i : m_items)
-        SDL_RenderCopy(m_renderer, i.getTexture(), nullptr, i.getDst());
+        SDL_RenderCopy(m_renderer, m_textures.at(i.getType()), nullptr, i.getDst());
 
     SDL_RenderPresent(m_renderer);
 }

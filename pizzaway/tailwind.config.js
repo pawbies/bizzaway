@@ -8,9 +8,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'pizza-red': '#FF0000',
-        'pizza-yellow': '#FFD700',
-        'light-pizza-yellow': '#FFEDA4',
+        'pizza-red': '#B20000',
+        'pizza-yellow': '#E6C200',
+        'light-pizza-yellow': '#ffde58',
       },
     },
   },

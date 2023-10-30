@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <algorithm>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>

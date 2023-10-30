@@ -20,20 +20,20 @@ Game::Game(int p_width, int p_height, const char *p_title)
 
     SDL_GetMouseState(&m_mousePos.x, &m_mousePos.y);
 
-    m_items.push_back(Item(200, 200, 100, 100, Type::Pot           ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::Seed          ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::Blender       ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::DNA           ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::Water         ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::Grass         ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::Wheat         ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::WashingMachine));
-    m_items.push_back(Item(200, 200, 100, 100, Type::Pickaxe       ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::MetalMine     ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::Bricks        ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::Glue          ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::Chainsaw      ));
-    m_items.push_back(Item(200, 200, 100, 100, Type::Fire          ));
+    m_items.push_back(Item(100, 100, 100, 100, Type::Pot           ));
+    m_items.push_back(Item(250, 150, 100, 100, Type::Seed          ));
+    m_items.push_back(Item(450, 200, 100, 100, Type::Blender       ));
+    m_items.push_back(Item(650, 300, 100, 100, Type::DNA           ));
+    m_items.push_back(Item(750, 500, 100, 100, Type::Water         ));
+    m_items.push_back(Item(800, 260, 100, 100, Type::Grass         ));
+    m_items.push_back(Item(400, 300, 100, 100, Type::Wheat         ));
+    m_items.push_back(Item(500, 600, 100, 100, Type::WashingMachine));
+    m_items.push_back(Item(600, 550, 100, 100, Type::Pickaxe       ));
+    m_items.push_back(Item(200, 400, 100, 100, Type::MetalMine     ));
+    m_items.push_back(Item(700, 150, 100, 100, Type::Bricks        ));
+    m_items.push_back(Item(100, 450, 100, 100, Type::Glue          ));
+    m_items.push_back(Item(200, 500, 100, 100, Type::Chainsaw      ));
+    m_items.push_back(Item(300, 250, 100, 100, Type::Fire          ));
 
 
     m_textures.insert_or_assign(Type::Undefined,      nullptr                                              );
@@ -116,8 +116,10 @@ Item Game::combineItems(Item &item, Item &otherItem)
 void Game::draw()
 {
     SDL_RenderClear(m_renderer);
+    std::reverse(m_items.begin(), m_items.end());
     for (Item &i : m_items)
         SDL_RenderCopy(m_renderer, m_textures.at(i.getType()), nullptr, i.getDst());
+    std::reverse(m_items.begin(), m_items.end());
 
     SDL_RenderPresent(m_renderer);
 }
@@ -160,8 +162,24 @@ void Game::handleInput()
         if (evt.type == SDL_MOUSEBUTTONUP && evt.button.button == SDL_BUTTON_LEFT)
         {
             m_mousePressed = false;
-            
-            //add code to do combine items
+
+            for (Item &item : m_items)
+            {
+                if (SDL_HasIntersection(m_itemToMove->getDst(), item.getDst()))
+                {
+                    Item combination = combineItems(*m_itemToMove, item);
+
+                    if (combination.getType() == Type::Failed || combination.getType() == Type::Undefined)
+                        continue;
+                    
+                    bool itemExists = false;
+                    for (int i = 0; i < m_items.size(); i++)
+                        if (m_items[i].getType() == combination.getType())
+                            itemExists = true;
+                    if (!itemExists)
+                        m_items.insert(m_items.begin(), combination);
+                }
+            }
 
             m_itemToMove = nullptr;
         }

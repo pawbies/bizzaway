@@ -21,6 +21,7 @@ private:
     Item *m_itemToMove;
     std::vector<Item> m_items;
     std::map<Type, SDL_Texture*> m_textures;
+    std::vector<std::pair<std::pair<Type, Type>, Type>> m_combinations;
 
     Item combineItems(Item &item, Item &otherItem);
 

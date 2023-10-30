@@ -38,7 +38,8 @@ enum class Type
     Wood = 27,
     OvenWithWood = 28,
     Fire = 29,
-    Pizza = 30
+    Oven = 30,
+    Pizza = 31
 };
 
 class Item

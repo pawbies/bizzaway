@@ -1,7 +1,7 @@
 #include "game.h"
 
 Game::Game(int p_width, int p_height, const char *p_title)
-    : m_running(true), m_window(nullptr), m_renderer(nullptr), m_mousePressed(false), m_mousePos(), m_offset(), m_itemToMove(nullptr), m_items(), m_textures()
+    : m_running(true), m_window(nullptr), m_renderer(nullptr), m_mousePressed(false), m_mousePos(), m_offset(), m_itemToMove(nullptr), m_items(), m_textures(), m_combinations()
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
@@ -67,6 +67,7 @@ Game::Game(int p_width, int p_height, const char *p_title)
     m_textures.insert_or_assign(Type::Wood, IMG_LoadTexture(m_renderer, "res/wood.png"));
     m_textures.insert_or_assign(Type::OvenWithWood, IMG_LoadTexture(m_renderer, "res/ovenwithpizza.png"));
     m_textures.insert_or_assign(Type::Fire, IMG_LoadTexture(m_renderer, "res/fire.png"));
+    m_textures.insert_or_assign(Type::Oven, IMG_LoadTexture(m_renderer, "res/oven.png"));
     m_textures.insert_or_assign(Type::Pizza, IMG_LoadTexture(m_renderer, "res/pizza.png"));
 
     for (std::pair<Type, SDL_Texture*> pair : m_textures)
@@ -74,11 +75,28 @@ Game::Game(int p_width, int p_height, const char *p_title)
         if (pair.second == nullptr)
             std::cerr << "Failed to load image for " << (int)pair.first << std::endl;
     }
+
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Pot, Type::Seed), Type::Tomato));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Tomato, Type::Blender), Type::Sauce));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::DNA, Type::Water), Type::Cow));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Cow, Type::Grass), Type::Milk));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Milk, Type::WashingMachine), Type::Cheese));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Wheat, Type::Blender), Type::Flour));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Flour, Type::Milk), Type::Dough));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Dough, Type::Sauce), Type::DoughWithSauce));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::DoughWithSauce, Type::Cheese), Type::Base));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::MetalMine, Type::Pickaxe), Type::Knife));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Cow, Type::Knife), Type::Meat));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Base, Type::Meat), Type::RawPizza));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Bricks, Type::Glue), Type::EmptyOven));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Tree, Type::Chainsaw), Type::Wood));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::EmptyOven, Type::Wood), Type::OvenWithWood));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::OvenWithWood, Type::Fire), Type::Oven));
+    m_combinations.push_back(std::make_pair<std::pair<Type, Type>, Type>(std::make_pair(Type::Oven, Type::RawPizza), Type::Pizza));
+
 }
 
 Game::~Game() {}
-
-
 
 Item Game::combineItems(Item &item, Item &otherItem)
 {
@@ -93,10 +111,8 @@ Item Game::combineItems(Item &item, Item &otherItem)
     return Item();
 }
 
-
 void Game::draw()
 {
-    //std::cout << m_items[0].getDst()->y << std::endl;
     SDL_RenderClear(m_renderer);
     for (Item &i : m_items)
         SDL_RenderCopy(m_renderer, m_textures.at(i.getType()), nullptr, i.getDst());
@@ -166,7 +182,7 @@ void Game::cleanUp()
 Pot + Seed = Tomato
 Tomato + Blender = Sauce
 DNA + Water = Cow
-Cow + Gras = Milk
+Cow + Grass = Milk
 Milk + WashingMachine = Cheese
 Wheat + Blender = Flour
 Flour + Milk = Dough

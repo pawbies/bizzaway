@@ -1,29 +1,14 @@
-#include <iostream>
-#include <raylib.h>
+#include "game.h"
 
-#define WIDTH 500
-#define HEIGHT 500
-
+#define WIDTH 1000
+#define HEIGHT 750
 
 int main()
 {
-    InitWindow(WIDTH, HEIGHT, "Title");
+    Game game(WIDTH, HEIGHT, "Get the pizza");
 
-    Vector2 position;
-    float radius = 3;
+    game.run();
+    game.cleanUp();
 
-    while (!WindowShouldClose())
-    {
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            radius *= 1.05;
-        position = GetMousePosition();
-
-        BeginDrawing();
-            ClearBackground(RAYWHITE);
-            DrawCircleV(position, radius, RED);
-        EndDrawing();
-    }
-
-    CloseWindow();
     return 0;
 }

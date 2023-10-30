@@ -20,8 +20,12 @@ private:
     Item *m_itemToMove;
     std::vector<Item> m_items;
 
+    Item combineItems(Item &item, Item &otherItem);
+
+    
     void draw();
     void handleInput();
+
 
 public:
     Game(int p_width, int p_height, const char *p_title);

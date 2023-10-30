@@ -20,11 +20,19 @@ Game::Game(int p_width, int p_height, const char *p_title)
 
     SDL_GetMouseState(&m_mousePos.x, &m_mousePos.y);
 
-    m_items.push_back(Item("res/pizza.png", 200, 200, 100, 100, m_renderer));
-    m_items.push_back(Item("res/pizza.png", 100, 200, 100, 100, m_renderer));
+    m_items.push_back(Item("res/pizza.png", 200, 200, 100, 100, Type::Pizza, m_renderer));
+    m_items.push_back(Item("res/pizza.png", 100, 200, 100, 100, Type::Pizza, m_renderer));
 }
 
 Game::~Game() {}
+
+
+
+Item Game::combineItems(Item &item, Item &otherItem)
+{
+    return Item();
+}
+
 
 void Game::draw()
 {

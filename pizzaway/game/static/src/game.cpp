@@ -37,7 +37,7 @@ Game::Game(int p_width, int p_height, const char *p_title)
 
 
     m_textures.insert_or_assign(Type::Undefined,      nullptr                                              );
-    m_textures.insert_or_assign(Type::Failed,         nullptr                                              );
+    m_textures.insert_or_assign(Type::Failed,         IMG_LoadTexture(m_renderer, "res/error.png"         ));
     m_textures.insert_or_assign(Type::Pot,            IMG_LoadTexture(m_renderer, "res/pot.png"           ));
     m_textures.insert_or_assign(Type::Seed,           IMG_LoadTexture(m_renderer, "res/seed.png"          ));
     m_textures.insert_or_assign(Type::Blender,        IMG_LoadTexture(m_renderer, "res/blender.png"       ));
@@ -160,6 +160,9 @@ void Game::handleInput()
         if (evt.type == SDL_MOUSEBUTTONUP && evt.button.button == SDL_BUTTON_LEFT)
         {
             m_mousePressed = false;
+            
+            //add code to do combine items
+
             m_itemToMove = nullptr;
         }
     }

@@ -1,5 +1,7 @@
 #include "game.h"
 
+#define WEEB_MODE
+
 Game::Game(int p_width, int p_height, const char *p_title)
     : m_running(true), m_window(nullptr), m_renderer(nullptr), m_mousePressed(false), m_mousePos(), m_offset(), m_itemToMove(nullptr), m_items(), m_textures(), m_combinations()
 {

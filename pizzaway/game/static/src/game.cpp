@@ -34,6 +34,7 @@ Game::Game(int p_width, int p_height, const char *p_title)
     m_items.push_back(Item(100, 450, 100, 100, Type::Glue          ));
     m_items.push_back(Item(200, 500, 100, 100, Type::Chainsaw      ));
     m_items.push_back(Item(300, 250, 100, 100, Type::Fire          ));
+    m_items.push_back(Item(700, 000, 100, 100, Type::Tree          ));
 
 
     m_textures.insert_or_assign(Type::Undefined,      nullptr                                              );
@@ -66,7 +67,7 @@ Game::Game(int p_width, int p_height, const char *p_title)
     m_textures.insert_or_assign(Type::Tree,           IMG_LoadTexture(m_renderer, "res/tree.png"          ));
     m_textures.insert_or_assign(Type::Chainsaw,       IMG_LoadTexture(m_renderer, "res/chainsaw.png"      ));
     m_textures.insert_or_assign(Type::Wood,           IMG_LoadTexture(m_renderer, "res/wood.png"          ));
-    m_textures.insert_or_assign(Type::OvenWithWood,   IMG_LoadTexture(m_renderer, "res/ovenwithpizza.png" ));
+    m_textures.insert_or_assign(Type::OvenWithWood,   IMG_LoadTexture(m_renderer, "res/ovenwithwood.png"  ));
     m_textures.insert_or_assign(Type::Fire,           IMG_LoadTexture(m_renderer, "res/fire.png"          ));
     m_textures.insert_or_assign(Type::Oven,           IMG_LoadTexture(m_renderer, "res/oven.png"          ));
     m_textures.insert_or_assign(Type::Pizza,          IMG_LoadTexture(m_renderer, "res/pizza.png"         ));
@@ -116,10 +117,11 @@ Item Game::combineItems(Item &item, Item &otherItem)
 void Game::draw()
 {
     SDL_RenderClear(m_renderer);
-    std::reverse(m_items.begin(), m_items.end());
-    for (Item &i : m_items)
-        SDL_RenderCopy(m_renderer, m_textures.at(i.getType()), nullptr, i.getDst());
-    std::reverse(m_items.begin(), m_items.end());
+
+    for (int i = m_items.size()-1; i >= 0; i--)
+    {
+        SDL_RenderCopy(m_renderer, m_textures.at(m_items[i].getType()), nullptr, m_items[i].getDst());
+    }
 
     SDL_RenderPresent(m_renderer);
 }
@@ -171,6 +173,9 @@ void Game::handleInput()
 
                     if (combination.getType() == Type::Failed || combination.getType() == Type::Undefined)
                         continue;
+                    
+                    if (combination.getType() == Type::Pizza)
+                        m_items.clear();
                     
                     bool itemExists = false;
                     for (int i = 0; i < m_items.size(); i++)

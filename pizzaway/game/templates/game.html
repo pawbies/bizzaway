@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get the Pizza</title>
+</head>
+<body>
+    <canvas id="canvas" oncontextmenu="event.preventDefault()" width="1000px" height="750px"></canvas>
+
+    <script>
+        var Module = {
+            canvas: (function() {return document.getElementById("canvas");})()
+        };
+    </script>
+    <script src="{% static 'game.js' %}"></script>
+
+</body>
+</html>

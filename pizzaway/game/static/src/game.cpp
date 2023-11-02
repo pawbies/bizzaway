@@ -5,6 +5,9 @@
 Game::Game(int p_width, int p_height, const char *p_title)
     : m_running(true), m_window(nullptr), m_renderer(nullptr), m_mousePressed(false), m_mousePos(), m_offset(), m_itemToMove(nullptr), m_items(), m_textures(), m_combinations()
 {
+    #ifdef __EMSCRIPTEN
+    SDL_SetHint(SDL_HINT_EMSCRIPTEN_ASYNCIFY, "1");
+    #endif
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         std::cerr << "Failed to init SDL" << std::endl;
@@ -17,7 +20,7 @@ Game::Game(int p_width, int p_height, const char *p_title)
     }
 
     m_window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, p_width, p_height, SDL_WINDOW_SHOWN);
-    m_renderer = SDL_CreateRenderer(m_window, 0, SDL_RENDERER_ACCELERATED);
+    m_renderer = SDL_CreateRenderer(m_window, 0, 0);
     SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
 
     SDL_GetMouseState(&m_mousePos.x, &m_mousePos.y);
@@ -97,7 +100,6 @@ Game::Game(int p_width, int p_height, const char *p_title)
     m_combinations.push_back(std::make_pair(std::make_pair(Type::EmptyOven,      Type::Wood          ), Type::OvenWithWood  ));
     m_combinations.push_back(std::make_pair(std::make_pair(Type::OvenWithWood,   Type::Fire          ), Type::Oven          ));
     m_combinations.push_back(std::make_pair(std::make_pair(Type::Oven,           Type::RawPizza      ), Type::Pizza         ));
-
 }
 
 Game::~Game() {}
@@ -126,6 +128,7 @@ void Game::draw()
     }
 
     SDL_RenderPresent(m_renderer);
+    //SDL_Delay(10);
 }
 
 void Game::handleInput()
@@ -135,6 +138,9 @@ void Game::handleInput()
     {
         if (evt.type == SDL_QUIT)
         {
+            #ifdef __EMSCRIPTEN__
+            emscripten_cancel_main_loop();
+            #endif
             m_running = false;
         }
 
@@ -192,6 +198,7 @@ void Game::handleInput()
         }
     }
 }
+
 
 void Game::run()
 {

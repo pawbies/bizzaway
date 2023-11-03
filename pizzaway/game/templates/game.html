@@ -5,10 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'out.css' %}" rel="stylesheet">
     <title>Get the Pizza</title>
 </head>
-<body>
-    <canvas id="canvas" oncontextmenu="event.preventDefault()" width="1000px" height="750px"></canvas>
+<body class="bg-pizza-yellow flex justify-center items-center h-screen">
+    <div class="bg-pizza-red text-white w-1000 p-8 rounded-lg shadow-lg">
+        <h1 class="text-4xl font-bold text-center mb-4">Get the Pizza</h1>
+        <canvas class="w-[1000px] h-[750px] fixed" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    </div>
 
     <script>
         var Module = {
@@ -16,6 +20,5 @@
         };
     </script>
     <script src="{% static 'game.js' %}"></script>
-
 </body>
 </html>

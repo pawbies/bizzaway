@@ -41,30 +41,74 @@
             <div class="w-3/4 p-4 bg-white flex-grow">
                 <h1 class="text-3xl font-semibold mb-4">Pending Orders</h1>
                 <div class="overflow-y-auto">
-                    <ul class="space-y-4">
-                        {% for order in orders %}
-                        <li class="border rounded p-4 shadow-md">
-                            <form action="{% url 'remove_order' %}" method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="order_id" value="{{ order.id }}">
-                                <input type="hidden" name="emp_id" value="{{ emp.id }}">
-                                <h2 class="text-xl font-semibold">{{ order.customer }}</h2>
-                                <p class="text-gray-600">{{ order.notes }}</p>
-                                <ul class="list-disc pl-8">
-                                    {% for pizza in order.pizzas.all %}
-                                    <li>{{ pizza }}</li>
-                                    {% endfor %}
-                                </ul>
-                                <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                                    Mark as Finished
-                                </button>
-                            </form>
-                        </li>
-                        {% endfor %}
+                    <ul class="space-y-4" id="order_container">
+                        
+
+                        
+                        
                     </ul>
                 </div>
             </div>
         </div>
     </main>
+
+    <script>
+
+        let latest_timestamp = null;
+
+        function append_order(customer, notes, pizzas, id) {
+            let pizza_list = "";
+            pizzas.forEach(pizza => {
+                pizza_list += `<li>${pizza}</li>`
+            });
+
+            document.getElementById('order_container').innerHTML += "<li class=\"border rounded p-4 shadow-md\">" +
+                "<form action=\"{% url 'remove_order' %}\" method=\"post\">" + 
+                    '{% csrf_token %}' +
+                    `<input type="hidden" name="order_id" value="${id}">` +
+                    '<input type="hidden" name="emp_id" value="{{ emp.id }}">' +
+                    `<h2 class="text-xl font-semibold">${customer}</h2>` + 
+                    `<p class="text-gray-600">${notes}</p>` + 
+                    '<ul class="list-disc pl-8">' + 
+                        pizza_list +
+                    '</ul>' + 
+                    '<button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">' + 
+                        'Mark as Finished' + 
+                    '</button>' + 
+                '</form>' + 
+            '</li>'
+        }
+
+        function processData(data) {
+            if (data.orders.length > 0) {
+                latest_timestamp = data.latest_timestamp;
+
+                // Loop through the orders and call the append_order function
+                data.orders.forEach(order => {
+                    const customer = order.customer;
+                    const notes = order.notes;
+                    const pizzas = order.pizzas;
+                    const id = order.id;
+                    // Call the append_order function
+                    append_order(customer, notes, pizzas, id);
+                });
+                console.log("New orders!");
+            } else {
+                console.log("No new orders!");
+            }
+        }
+
+        function check() {
+            fetch(`/mitarbeiter/latest_order/?timestamp=${latest_timestamp}`)
+                .then(response => response.json())
+                .then(data => { processData(data); })
+                .catch(error => { console.error("Error: ", error); });
+        }
+
+        check();
+        document.getElementsByTagName("body")[0].onload = () => {
+            setInterval(check, 5000);
+        }
+    </script>
 </body>
 </html>

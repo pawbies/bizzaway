@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+
+from django.utils import timezone
 
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
@@ -37,3 +39,17 @@ def login(request):
 def logout(request):
     django_logout(request)
     return HttpResponseRedirect(reverse("login_page"))
+
+
+def latest_order(request):
+    try:
+        since = timezone.datetime.fromtimestamp(float(request.GET.get("timestamp")), tz=None)
+    except ValueError:
+        since = timezone.datetime(2020, 1, 1, 1, 1, 1, 0)
+    order_since = Order.objects.filter(timestamp__gt=since).order_by("timestamp")
+    latest_timestamp = Order.objects.latest("timestamp").timestamp.timestamp()
+
+    data = [{"customer": order.customer, "email": order.email, "notes": order.notes, "timestamp": order.timestamp.timestamp(), "pizzas": list(order.pizzas.values_list("name", flat=True)), "id": order.id} for order in order_since]
+    data = {"orders": data, "latest_timestamp": latest_timestamp}
+
+    return JsonResponse(data)

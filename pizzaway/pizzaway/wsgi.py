@@ -1,11 +1,4 @@
-"""
-WSGI config for pizzaway project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
-"""
+#for apache later because i can't be bothered to look up how this works now
 
 import os
 

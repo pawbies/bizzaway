@@ -1,11 +1,6 @@
-"""
-ASGI config for pizzaway project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
-"""
+#i think this is an alternative to wsgi
+#i think i've read about that in the django docs
+#but i could be wrong i didn't need it so far
 
 import os
 

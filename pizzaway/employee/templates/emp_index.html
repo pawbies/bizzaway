@@ -58,24 +58,26 @@
         function append_order(customer, notes, pizzas, id) {
             let pizza_list = "";
             pizzas.forEach(pizza => {
-                pizza_list += `<li>${pizza}</li>`
+                pizza_list += `<li class="pizzalist" onclick="toggle_cross_out(this)">${pizza}</li>`
             });
 
-            document.getElementById('order_container').innerHTML += "<li class=\"border rounded p-4 shadow-md\">" +
-                "<form action=\"{% url 'remove_order' %}\" method=\"post\">" + 
-                    '{% csrf_token %}' +
-                    `<input type="hidden" name="order_id" value="${id}">` +
-                    '<input type="hidden" name="emp_id" value="{{ emp.id }}">' +
-                    `<h2 class="text-xl font-semibold">${customer}</h2>` + 
-                    `<p class="text-gray-600">${notes}</p>` + 
-                    '<ul class="list-disc pl-8">' + 
-                        pizza_list +
-                    '</ul>' + 
-                    '<button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">' + 
-                        'Mark as Finished' + 
-                    '</button>' + 
-                '</form>' + 
-            '</li>'
+            document.getElementById('order_container').innerHTML += `
+                <li class="border rounded p-4 shadow-md">
+                    <form action="{% url 'remove_order' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="${id}">
+                    <input type="hidden" name="emp_id" value="{{ emp.id }}">
+                    <h2 class="text-xl font-semibold">${customer}</h2>
+                    <p class="text-gray-600">${notes}</p>
+                    <ul class="list-disc pl-8">
+                        ${pizza_list}
+                    </ul>
+                    <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Mark as Finished
+                    </button>
+                    </form>
+                </li>
+            `;
         }
 
         function processData(data) {
@@ -95,6 +97,11 @@
             } else {
                 console.log("No new orders!");
             }
+        }
+
+        function toggle_cross_out(element) {
+            console.log(element.classList);
+            element.classList.toggle("line-through")
         }
 
         function check() {

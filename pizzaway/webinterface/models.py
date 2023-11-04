@@ -101,6 +101,8 @@ class Order(models.Model):
 class PizzaOrder(models.Model):
     pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE, related_name='order')
     #foreign key to the pizza
+    #the models.CASCADE just makes it so that when the referenced Pizza
+    #or the order is deleted the PizzaOrder ceases to exist
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='pizza_order')
     #foreign key to the order
     amount = models.IntegerField(default=1)

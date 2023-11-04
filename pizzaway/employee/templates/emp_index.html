@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-100">
 
-
+    <!-- The beautiful header  -->
     <header class="bg-blue-800 text-white p-4">
         <div class="flex justify-between items-center">
             <div class="text-2xl font-semibold">Welcome, {{ user.username }}</div>
@@ -22,9 +22,11 @@
         </div>
     </header>
 
+    <!-- and believe it or not this is where the "main" part of the page lives -->
     <main>
         <div class="flex min-h-screen">
-            <!-- Sidebar -->
+
+            <!-- we got the sidebar -->
             <div class="w-1/4 p-4">
                 <h2 class="text-xl font-semibold mb-4">Leaderboard</h2>
                 <ul class="space-y-2">
@@ -37,7 +39,8 @@
                 </ul>
             </div>
 
-            <!-- Content -->
+
+            <!-- and the container where the order's will be put -->
             <div class="w-3/4 p-4 bg-white flex-grow">
                 <h1 class="text-3xl font-semibold mb-4">Pending Orders</h1>
                 <div class="overflow-y-auto">
@@ -52,10 +55,15 @@
         </div>
     </main>
 
+    <!-- sorry i had to put the js into the html because i need the cstf_token and form url to be resolved -->
     <script>
+        //timestamp of the latest order we got
         let latest_timestamp = null;
 
         function append_order(customer, notes, pizzas, id) {
+            //this put's the data from the arguments into the templates below
+            //and we put it into our order container
+
             let pizza_list = "";
             pizzas.forEach(pizza => {
                 pizza_list += `<li class="pizzalist" onclick="toggle_cross_out(this)">${pizza}</li>`
@@ -84,13 +92,12 @@
             if (data.orders.length > 0) {
                 latest_timestamp = data.latest_timestamp;
 
-                // Loop through the orders and call the append_order function
+                //adds all the orders to the html
                 data.orders.forEach(order => {
                     const customer = order.customer;
                     const notes = order.notes;
                     const pizzas = order.pizzas;
                     const id = order.id;
-                    // Call the append_order function
                     append_order(customer, notes, pizzas, id);
                 });
                 console.log("New orders!");
@@ -99,11 +106,13 @@
             }
         }
 
+        //crosses out pizzas if you click them
         function toggle_cross_out(element) {
             console.log(element.classList);
             element.classList.toggle("line-through")
         }
 
+        //and this asks the server for new orders 
         function check() {
             fetch(`/mitarbeiter/latest_order/?timestamp=${latest_timestamp}`)
                 .then(response => response.json())
@@ -111,7 +120,9 @@
                 .catch(error => { console.error("Error: ", error); });
         }
 
+        //we check one time in the beginning 
         check();
+        //and then every 5 seconds 
         document.getElementsByTagName("body")[0].onload = () => {
             setInterval(check, 5000);
         }

@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-# Create your models here.
 
-class Employee(models.Model):
+#employee to extend the user model
+class Employee(models.Model): 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     orders_cooked = models.IntegerField(default=0)
 
@@ -15,6 +15,7 @@ class Employee(models.Model):
 
 
 
+#and those things make it so that for each user an employee account is created
 @receiver(post_save, sender=User)
 def create_employee(sender, instance, created, **kwargs):
     print("create employee")

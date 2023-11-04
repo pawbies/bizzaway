@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="{% static 'out.css' %}">
     {% block extra %}{% endblock %}
 </head>
-<body class="flex flex-col gap-3 min-h-screen bg-light-pizza-yellow">
+<body class="flex flex-col gap-3 min-h-screen bg-light-pizza-yellow dark:bg-light-pizza-yellow-dark">
 
 
-    <header class="bg-pizza-red text-white rounded-t-lg flex flex-col md:flex-row justify-around items-center p-4">
+    <header class="bg-pizza-red dark:bg-pizza-red-dark text-white rounded-t-lg flex flex-col md:flex-row justify-around items-center p-4">
         <a href="{% url 'index' %}" class="h-full w-1/2 md:w-auto">
             <img src="{% static 'img/LOGO.png' %}" alt="Pizzaway-Logo" class="h-full w-full transition-transform transform hover:scale-105 md:scale-100">
         </a>
@@ -23,12 +23,12 @@
     </header>
 
 
-    <main class="flex flex-col flex-grow bg-pizza-yellow md:flex-row">
+    <main class="flex flex-col flex-grow bg-pizza-yellow dark:bg-pizza-yellow-dark md:flex-row text-black dark:text-text-dark">
         {% block content %}{% endblock %}
     </main>
 
 
-    <footer class="bg-pizza-red text-white rounded-b-lg sticky bottom-0 p-4 flex justify-center space-x-4">
+    <footer class="bg-pizza-red dark:bg-pizza-red-dark text-white dark:text-text-dark rounded-b-lg sticky bottom-0 p-4 flex justify-center space-x-4">
         <a href="{% url 'contact' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Contact</a>
         <a href="{% url 'imprint' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Imprint</a>
         <a href="{% url 'privacy' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Privacy Policy</a>

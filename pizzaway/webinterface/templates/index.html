@@ -14,7 +14,7 @@
 
 
 <div id="pizza" class="p-4 rounded-lg md:w-1/2">
-    <h1 class="text-3xl font-bold text-pizza-red mb-4 text-center md:text-left">Pizzas</h1>
+    <h1 class="text-3xl font-bold text-pizza-red dark:text-purple-900 mb-4 text-center md:text-left">Pizzas</h1>
 
     <ul class="space-y-4">
         {% for pizza in pizzas %}
@@ -25,7 +25,7 @@
                 {% for ingredient in pizza.ingredients.all %}
                     <li class="relative group mt-6">
                         
-                        <span class="border border-pizza-red rounded-md px-2 py-2 mb-3 text-pizza-red cursor-pointer hover:bg-pizza-red hover:text-white group-hover:bg-pizza-red group-hover:text-white">
+                        <span class="border border-pizza-red dark:border-purple-900 rounded-md px-2 py-2 mb-3 text-pizza-red dark:text-purple-900 cursor-pointer hover:bg-pizza-red dark:hover:bg-pruple-900 hover:text-white group-hover:bg-pizza-red dark:group-hover:bg-purple-900 group-hover:text-white">
                             {{ ingredient }}
                         </span>
 

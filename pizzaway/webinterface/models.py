@@ -71,7 +71,16 @@ class Order(models.Model):
     email = models.CharField(max_length=50, blank=False, null=False)
     notes = models.CharField(max_length=300, blank=False, null=False)
     timestamp = models.DateTimeField(auto_now=True, blank=False, null=False)
-    pizzas = models.ManyToManyField(Pizza, blank=False)
 
     def __str__(self):
         return self.customer
+
+
+class PizzaOrder(models.Model):
+    pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE, related_name='order')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='pizza_order')
+    amount = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.order.customer}`s {self.pizza.name}'
+    

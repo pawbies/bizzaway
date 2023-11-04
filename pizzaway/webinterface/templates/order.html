@@ -8,7 +8,7 @@
     <form action="{% url 'add_order' %}" method="post">
       {% csrf_token %}
 
-      <!-- Name and Email -->
+      
       <div class="mb-4">
         <label for="customer" class="block text-lg font-semibold">Name</label>
         <input type="text" id="customer" name="customer" class="w-full p-2 border border-gray-300 rounded-md" required>
@@ -19,68 +19,116 @@
         <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded-md" required>
       </div>
 
-      <!-- Pizza Selection -->
+      
       <div class="mb-4">
         <label class="block text-lg font-semibold">Select Pizzas</label>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {% for pizza in pizzas %}
             <div class="border border-gray-200 p-4 rounded-md hover:shadow-lg transition duration-300 ease-in-out">
               <label class="flex items-center space-x-2">
-                <input type="checkbox" name="selected_pizzas[]" value="{{ pizza.name }}">
+                <input type="checkbox" name="selected_pizzas[]" value="{{ pizza.name }}" class="pizza_check" data-target="{{ pizza.name }}_amount">
                 <span class="text-lg font-semibold">{{ pizza.name }}</span>
                 <span class="text-gray-600 text-sm">€{{ pizza.price }}</span>
+                <input type="number" name="{{ pizza.name }}_amount" class="border border-gray-300 rounded-md pl-2 pr-8 py-1 w-20 hidden amount" min="0" placeholder="0">
               </label>
             </div>
           {% endfor %}
         </div>
       </div>
 
-        <!-- Total Price -->
-        <div class="mb-4">
-            <label for="total-price" class="block text-lg font-semibold">Total Price:</label>
-            <span id="total-price">€0.00</span>
-        </div>
+        
+      <div class="mb-4">
+          <label for="total-price" class="block text-lg font-semibold">Total Price:</label>
+          <span id="total-price">€0.00</span>
+      </div>
   
   
 
-      <!-- Notes -->
+      
       <div class="mb-4">
         <label for="notes" class="block text-lg font-semibold">Additional Notes (Optional)</label>
         <textarea id="notes" name="notes" class="w-full p-2 border border-gray-300 rounded-md" rows="4"></textarea>
       </div>
 
-      <button type="submit" class="bg-pizza-red text-white py-2 px-4 rounded-md hover:bg-pizza-red-dark transition duration-300 ease-in-out">
+      <button type="submit" id="submit" class="bg-pizza-red text-white py-2 px-4 rounded-md hover:bg-pizza-red-dark transition duration-300 ease-in-out">
         Place Order
       </button>
     </form>
   </section>
 
   <script>
-    // JavaScript to calculate the total price of selected pizzas in Euros (€)
-    const checkboxes = document.getElementsByName('selected_pizzas[]');
-    const totalPriceDisplay = document.getElementById('total-price');
 
+    let checkboxes = document.getElementsByName("selected_pizzas[]");
+    let amountfields = document.getElementsByClassName("amount");
+    const totalPriceDisplay = document.getElementById("total-price");
 
-    checkboxes.forEach((checkbox) => {
-      checkbox.addEventListener('change', () => {
+    function update_price() {
         let totalSelectedPrice = 0;
   
         for (let i = 0; i < checkboxes.length; i++) {
           if (checkboxes[i].checked) {
             const priceElement = checkboxes[i].parentElement.querySelector('.text-sm');
+            const amount = checkboxes[i].parentElement.querySelector(".amount").value;
             if (priceElement) {
-              const priceText = priceElement.textContent.trim(); // Remove leading/trailing spaces
-              const price = parseFloat(priceText.replace('€', '').replace(',', '.').trim()); // Convert €10,00 to a valid float
+
+              const priceText = priceElement.textContent.trim();
+              const price = parseFloat(priceText.replace('€', '').replace(',', '.').trim());
               if (!isNaN(price)) {
-                totalSelectedPrice += price;
+                totalSelectedPrice += price*amount;
               }
+
             }
           }
         }
-  
+
         totalPriceDisplay.textContent = `€${totalSelectedPrice.toFixed(2).replace('.', ',')}`;
+    }
+
+    checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener('change', (evt) => {
+        let number_name = evt.target.getAttribute("data-target");
+        let input_field = document.getElementsByName(number_name)[0];
+
+        if (evt.target.checked)
+        {
+          input_field.classList.remove("hidden");
+          input_field.value = 1;
+        }
+        else
+        {
+          input_field.classList.add("hidden");
+          input_field.value = 0;
+        }
+        update_price();
       });
     });
+
+    Array.from(amountfields).forEach((numberfield) => {
+      numberfield.addEventListener("change", () => {
+        update_price();
+      });
+    });
+
+    checkboxes.forEach((checkbox) => {
+      let number_input = document.getElementsByName(checkbox.getAttribute("data-target"))[0];
+      if (checkbox.checked && number_input.classList.contains("hidden"))
+      {
+        number_input.classList.remove("hidden");
+      }
+      else if ((!checkbox.checked && !number_input.classList.contains("hidden")))
+      {
+        number_input.add("hidden");
+      }
+    });
+
+    document.getElementById("submit").addEventListener("click", () => {
+      Array.from(amountfields).forEach((numberfield) => {
+        if (numberfield.value == 0) {
+          numberfield.parentElement.removeChild(numberfield);
+        }
+      });
+    });
+
   </script>
   
 {% endblock %}

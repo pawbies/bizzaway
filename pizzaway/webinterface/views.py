@@ -3,7 +3,7 @@ from django.http.response import HttpResponseRedirect, Http404, HttpResponse
 from django.http.request import HttpRequest
 from django.urls import reverse
 
-from .models import Order, Pizza
+from .models import Order, Pizza, PizzaOrder
 from employee.models import Employee
 
 # Create your views here.
@@ -29,17 +29,19 @@ def add_order(request: HttpRequest):
     email = request.POST.get("email")
     notes = request.POST.get("notes")
     pizzas = request.POST.getlist("selected_pizzas[]")
-
+    
     order = Order(customer=name, email=email, notes=notes)
     order.save()
 
     for pizza in pizzas:
         try:
             p = get_object_or_404(Pizza, name=pizza)
-            order.pizzas.add(p)
+            amount = request.POST.get(f"{p.name}_amount")
+            PizzaOrder.objects.create(pizza=p, order=order, amount=amount)
         except Http404:
-            order.delete()
             return HttpResponse(f"{pizza} was not found in database")
+        
+
     
     return HttpResponseRedirect(reverse("index"))
 

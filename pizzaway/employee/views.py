@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
@@ -22,7 +23,6 @@ def index(request):
 
 def login_page(request):
     return render(request, "login.html", {})
-
 
 
 def login(request):
@@ -46,10 +46,32 @@ def latest_order(request):
         since = timezone.datetime.fromtimestamp(float(request.GET.get("timestamp")), tz=None)
     except ValueError:
         since = timezone.datetime(2020, 1, 1, 1, 1, 1, 0)
-    order_since = Order.objects.filter(timestamp__gt=since).order_by("timestamp")
-    latest_timestamp = Order.objects.latest("timestamp").timestamp.timestamp()
 
-    data = [{"customer": order.customer, "email": order.email, "notes": order.notes, "timestamp": order.timestamp.timestamp(), "pizzas": list(order.pizzas.values_list("name", flat=True)), "id": order.id} for order in order_since]
+    try:
+        order_since = Order.objects.filter(timestamp__gt=since).order_by("timestamp")
+        latest_timestamp = Order.objects.latest("timestamp").timestamp.timestamp()
+    except ObjectDoesNotExist:
+        order_since = []
+        latest_timestamp = timezone.now().timestamp()
+
+
+    data = []
+    for order in order_since:
+
+        pizza_orders = order.pizza_order.all()
+        pizzas=[]
+        for pizza_order in pizza_orders:
+            pizzas.append(f"{pizza_order.pizza.name} x {pizza_order.amount}")
+        
+        data.append({
+            "customer": order.customer,
+            "email": order.email,
+            "notes": order.notes,
+            "timestamp": order.timestamp.timestamp(),
+            "pizzas": list(pizzas),
+            "id": order.id
+        })
+
     data = {"orders": data, "latest_timestamp": latest_timestamp}
 
     return JsonResponse(data)

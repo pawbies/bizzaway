@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 
 from . import views
 
+#those are all pretty self-explanatory
 urlpatterns = [
     path("", views.index, name="index"),
     path("order/", views.order, name="order"),
@@ -15,3 +16,6 @@ urlpatterns = [
     path("order/remove/", views.remove_order, name="remove_order"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#the line above makes it so i can access the pizza images
+#idk how bur after searching through stackoverflow i found this
+#and like i like to say... never touch a running system

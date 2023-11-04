@@ -1,9 +1,11 @@
 {% extends "base.html" %}
-{% load static%}
+<!-- i have put the load static thingy in the base but it also needs to be here to work -->
+{% load static%} 
 
 {% block title %}Main page{% endblock %}
 
 {% block extra %}
+    <!-- And that's the whole reason the extra block even exists -->
     <script src="{% static 'show_pizza.js' %}"></script>
 {% endblock %}
 
@@ -17,11 +19,13 @@
     <h1 class="text-3xl font-bold text-pizza-red dark:text-purple-900 mb-4 text-center md:text-left">Pizzas</h1>
 
     <ul class="space-y-4">
+        <!-- Here we generate the menu -->
         {% for pizza in pizzas %}
         <li>
             <h2 class="text-xl font-semibold text-center md:text-left" onclick="showImage('{{  pizza.image.url  }}')">{{ pizza.name }}</h2>
 
             <ul class="flex flex-wrap justify-center space-x-4">
+                <!--tbh most of what happens in this list goes way over my head but it works-->
                 {% for ingredient in pizza.ingredients.all %}
                     <li class="relative group mt-6">
                         
@@ -41,6 +45,7 @@
                 {% endfor %}
             </ul>
             
+            <!-- The most important part for any gymbro... i present: the macros -->
             <div class="mt-2">
                 <p><strong>Calories:</strong> {{ pizza.get_calories }}</p>
                 <p><strong>Carbs:</strong> {{ pizza.get_carbs }}g</p>

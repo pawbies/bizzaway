@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} <!-- This enables me to load static files -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Pizzaway{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'out.css' %}">
-    {% block extra %}{% endblock %}
+    {% block extra %}{% endblock %} <!-- if i need something in the head -->
 </head>
 <body class="flex flex-col gap-3 min-h-screen bg-light-pizza-yellow dark:bg-light-pizza-yellow-dark">
 
-
+    <!-- The header oooh, who would have thought -->
     <header class="bg-pizza-red dark:bg-pizza-red-dark text-white rounded-t-lg flex flex-col md:flex-row justify-around items-center p-4">
         <a href="{% url 'index' %}" class="h-full w-1/2 md:w-auto">
             <img src="{% static 'img/LOGO.png' %}" alt="Pizzaway-Logo" class="h-full w-full transition-transform transform hover:scale-105 md:scale-100">
@@ -22,18 +22,17 @@
         </div>
     </header>
 
-
+    <!-- so the main part that need to be extended is this -->
     <main class="flex flex-col flex-grow bg-pizza-yellow dark:bg-pizza-yellow-dark md:flex-row text-black dark:text-text-dark">
         {% block content %}{% endblock %}
     </main>
 
-
+    <!-- and where my ladies and gentleman we have the footer with links to the not so important sites -->
     <footer class="bg-pizza-red dark:bg-pizza-red-dark text-white dark:text-text-dark rounded-b-lg sticky bottom-0 p-4 flex justify-center space-x-4">
         <a href="{% url 'contact' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Contact</a>
         <a href="{% url 'imprint' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Imprint</a>
         <a href="{% url 'privacy' %}" class="text-sm hover:underline transition duration-300 ease-in-out">Privacy Policy</a>
     </footer>
-
 
 </body>
 </html>

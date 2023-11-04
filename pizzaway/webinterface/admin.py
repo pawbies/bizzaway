@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+#i put all the models here that i want to manage via the
+#admin panel 
+#i don't wanna code a dashboard for that stuff myself
+#so i'll just take the easy route
 
 from .models import Ingredient, Pizza, Order, PizzaOrder
 

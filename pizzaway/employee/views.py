@@ -4,11 +4,14 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 from django.utils import timezone
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth import authenticate as django_authenticate
+
+import pytz
 
 from webinterface.models import Order
 from .models import Employee
@@ -50,9 +53,9 @@ def logout(request):
 def latest_order(request):
     #this fails the first time because it tries it with "null" until it get's an order from it
     try:
-        since = timezone.datetime.fromtimestamp(float(request.GET.get("timestamp")), tz=None)
+        since = timezone.datetime.fromtimestamp(float(request.GET.get("timestamp")), tz=pytz.timezone(settings.TIME_ZONE))
     except ValueError:
-        since = timezone.datetime(2020, 1, 1, 1, 1, 1, 0)
+        since = timezone.datetime.fromtimestamp(0, tz=pytz.timezone(settings.TIME_ZONE))
 
     #this also fails if no orders exist
     #but normally it would get all the orders since the "since" timestamp

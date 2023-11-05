@@ -108,8 +108,7 @@ TIME_ZONE = 'Europe/Berlin'
 USE_I18N = True
 
 #if i want time aware for the time zone
-#i don't
-USE_TZ = False
+USE_TZ = True
 
 
 #where the static files are

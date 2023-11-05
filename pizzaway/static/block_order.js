@@ -4,7 +4,7 @@ let now = new Date();
 let startTime = new Date();
 startTime.setHours(10, 0, 0); //open from 10am to 9pm
 let endTime = new Date();
-endTime.setHours(21, 0, 0);
+endTime.setHours(22, 0, 0);
 
 let orderlink = document.getElementById("orderlink");
 

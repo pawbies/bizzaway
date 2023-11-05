@@ -6,6 +6,8 @@ from django.urls import reverse
 from .models import Order, Pizza, PizzaOrder
 from employee.models import Employee
 
+import math
+
 #the most of our views are rather basic
 
 def index(request: HttpRequest):
@@ -23,6 +25,9 @@ def imprint(request: HttpRequest):
 def privacy(request: HttpRequest):
     return render(request, "privacy.html", {})
 
+def order_successful(request):
+    return render(request, "order_successful.html", {"time": request.GET.get("time")})
+
 
 def add_order(request: HttpRequest): #this is the only interesting thing
     #first we retrieve all the arguments from the post list
@@ -37,16 +42,21 @@ def add_order(request: HttpRequest): #this is the only interesting thing
     order = Order(customer=name, email=email, notes=notes)
     order.save()
 
+    pizza_amount = 0
+
     for pizza in pizzas: # try to create an entry in PizzaOrder for every different pizza
         try:
             p = get_object_or_404(Pizza, name=pizza)
             amount = request.POST.get(f"{p.name}_amount")
+            pizza_amount += int(amount)
             PizzaOrder.objects.create(pizza=p, order=order, amount=amount)
         except Http404: #and return a string if it didn't work because i won't code an entire page just for one edgecase
             return HttpResponse(f"{pizza} was not found in database")
-        
-    return HttpResponseRedirect(reverse("index")) #and we look up what the url for index is and redirect the user there
+    
 
+        
+    return HttpResponseRedirect(f"{reverse('order_successful')}?time={math.ceil(pizza_amount/4)*15}") #and we look up what the url for the successful page is and redirect the user there
+    #oh yeah and we assume one pizza takes 10 minutes to make and we can make 4 at the same time
 
 def remove_order(request: HttpRequest):
     #delete the order associated with the order_id in the post list
@@ -57,3 +67,4 @@ def remove_order(request: HttpRequest):
     employee.orders_cooked += 1
     employee.save()
     return HttpResponseRedirect(reverse("emp_index")) #and back you go weeeee....
+

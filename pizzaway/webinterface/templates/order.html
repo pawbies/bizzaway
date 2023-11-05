@@ -11,12 +11,12 @@
       
       <div class="mb-4">
         <label for="customer" class="block text-lg font-semibold">Name</label>
-        <input type="text" id="customer" name="customer" class="w-full p-2 border border-gray-300 rounded-md" required>
+        <input type="text" id="customer" name="customer" class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-900" required>
       </div>
 
       <div class="mb-4">
         <label for="email" class="block text-lg font-semibold">Email</label>
-        <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded-md" required>
+        <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-900" required>
       </div>
 
       
@@ -29,7 +29,7 @@
                 <input type="checkbox" name="selected_pizzas[]" value="{{ pizza.name }}" class="pizza_check" data-target="{{ pizza.name }}_amount">
                 <span class="text-lg font-semibold">{{ pizza.name }}</span>
                 <span class="text-gray-600 text-sm">€{{ pizza.price }}</span>
-                <input type="number" name="{{ pizza.name }}_amount" class="border border-gray-300 rounded-md pl-2 pr-8 py-1 w-20 hidden amount" min="0" placeholder="0">
+                <input type="number" name="{{ pizza.name }}_amount" class="border border-gray-300 rounded-md pl-2 pr-8 py-1 w-20 hidden amount dark:bg-gray-900" min="0" placeholder="0">
               </label>
             </div>
           {% endfor %}
@@ -47,7 +47,7 @@
       
       <div class="mb-4">
         <label for="notes" class="block text-lg font-semibold">Additional Notes (Optional)</label>
-        <textarea id="notes" name="notes" class="w-full p-2 border border-gray-300 rounded-md" rows="4"></textarea>
+        <textarea id="notes" name="notes" class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-900" rows="4"></textarea>
       </div>
 
       <button type="submit" id="submit" class="bg-pizza-red text-white py-2 px-4 rounded-md hover:bg-pizza-red-dark transition duration-300 ease-in-out">

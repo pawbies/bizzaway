@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Order successful{% endblock %}
+
+{% block header %}Danke für ihre Bestellung{% endblock %}
+
+{% block content %}
+    <div class="md:w-2/3 mx-auto my-4 p-4 rounded-lg bg-white dark:bg-gray-900 shadow-lg">
+        <h2 class="text-3xl font-bold mb-4 text-center">Order Confirmation</h2>
+        <div class="text-center">
+            <p class="text-xl">Ihre Bestellung war erfolgreich!</p>
+            <p class="text-xl">Ihre Bestellung ist in etwa {{  time  }} minuten abholbereit.</p>
+            <p class="text-xl">Danke dass sie Pizzaway gewählt haben.</p>
+            <p class="text-xl">Wir freuen uns darauf sie zu Bedienen.</p>
+        </div>
+        <div class="flex justify-center mt-6">
+            <a href="{% url 'index' %}" class="bg-pizza-red text-white font-semibold py-2 px-4 rounded-md hover:bg-pizza-red-dark transition duration-300 ease-in-out">
+                Zurück zum Start
+            </a>
+        </div>
+    </div>
+{% endblock %}

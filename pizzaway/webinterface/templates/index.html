@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 <!-- i have put the load static thingy in the base but it also needs to be here to work -->
 {% load static%} 
+{% load i18n %}
 
-{% block title %}Main page{% endblock %}
+{% block title %}{% translate "Main page" %}{% endblock %}
 
 {% block extra %}
     <!-- And that's the whole reason the extra block even exists -->
@@ -47,10 +48,10 @@
             
             <!-- The most important part for any gymbro... i present: the macros -->
             <div class="mt-2">
-                <p><strong>Calories:</strong> {{ pizza.get_calories }}</p>
-                <p><strong>Carbs:</strong> {{ pizza.get_carbs }}g</p>
-                <p><strong>Protein:</strong> {{ pizza.get_protein }}g</p>
-                <p><strong>Fat:</strong> {{ pizza.get_fat }}g</p>
+                <p><strong>{% translate "Calories" %}:</strong> {{ pizza.get_calories }}</p>
+                <p><strong>{% translate "Carbs" %}:</strong> {{ pizza.get_carbs }}g</p>
+                <p><strong>{% translate "Protein" %}:</strong> {{ pizza.get_protein }}g</p>
+                <p><strong>{% translate "Fat" %}:</strong> {{ pizza.get_fat }}g</p>
             </div>
             
         </li>

@@ -2,7 +2,7 @@
 #some smart people might have figured that out already when they saw the filename
 from pathlib import Path
 import os
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 #base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,12 +50,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-LANGUAGES = [
-    ("de", "Deutsch"),
-    ("en", "English"),
-]
+
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, "webinterface", "locale"),
+    BASE_DIR / "pizzaway" / "locale",
+    BASE_DIR / "webinterface" / "locale",
+    BASE_DIR / "employee" / "locale",
+    BASE_DIR / "game" / "locale",
 ]
 
 #another thing you can probably guess is
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 #the language of the site
-LANGUAGE_CODE = 'en-en'
+LANGUAGE_CODE = 'en'
 
 #timezone of the server
 TIME_ZONE = 'Europe/Berlin'
@@ -138,3 +138,8 @@ LOGIN_URL = "/mitarbeiter/login"
 #for user uploaded stuff (the pizza images in our case)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
+LANGUAGES = [
+    ("de", _("German")),
+    ("en", _("English")),
+]

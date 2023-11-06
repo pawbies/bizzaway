@@ -7,6 +7,12 @@ default:
 tailwind:
 	npx tailwindcss -i static/src_css.css -o static/out.css --watch
 
+compiletranslation:
+	python manage.py compilemessages
+
+updatetranslation:
+	python manage.py makemessages -a
+
 install:
 	pip install django
 	npm install -D tailwindcss postcss autoprefixer

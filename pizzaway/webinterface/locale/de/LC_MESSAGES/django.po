@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-06 10:17+0100\n"
+"POT-Creation-Date: 2023-11-06 18:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +17,112 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: webinterface/templates/base.html:20
+msgid "Welcome to our Pizzeria"
+msgstr "Willkommen zu unserer Pizzeria"
+
+#: webinterface/templates/base.html:22 webinterface/templates/order.html:6
+msgid "Order"
+msgstr "Bestellung"
+
+#: webinterface/templates/base.html:23
+msgid "Employees"
+msgstr "Mitarbeiter"
+
+#: webinterface/templates/base.html:34 webinterface/templates/contact.html:4
 #: webinterface/templates/contact.html:6
 msgid "Contact"
 msgstr "Kontakt"
 
-#: webinterface/templates/imprint.html:6
+#: webinterface/templates/base.html:35 webinterface/templates/imprint.html:4
+#: webinterface/templates/imprint.html:6 webinterface/views.py:15
 msgid "Imprint"
 msgstr "Impressum"
 
-#: webinterface/templates/order.html:6
-msgid "Order"
-msgstr "Bestellen"
+#: webinterface/templates/base.html:36 webinterface/templates/privacy.html:4
+#: webinterface/templates/privacy.html:5 webinterface/templates/privacy.html:9
+msgid "Privacy Policy"
+msgstr "Datenschutz"
+
+#: webinterface/templates/index.html:6
+msgid "Main page"
+msgstr "Startseite"
+
+#: webinterface/templates/index.html:51
+msgid "Calories"
+msgstr "Kalorien"
+
+#: webinterface/templates/index.html:52
+msgid "Carbs"
+msgstr "Kohlenhydrate"
+
+#: webinterface/templates/index.html:53
+msgid "Protein"
+msgstr "Eiweiß"
+
+#: webinterface/templates/index.html:54
+msgid "Fat"
+msgstr "Fett"
+
+#: webinterface/templates/order.html:10
+msgid "Place your Order"
+msgstr "Geben Sie ihre Bestellung auf"
+
+#: webinterface/templates/order.html:16
+msgid "Name"
+msgstr "Name"
+
+#: webinterface/templates/order.html:21
+msgid "Email"
+msgstr "Email"
+
+#: webinterface/templates/order.html:27
+msgid "Select Pizzas"
+msgstr "Pizza Auswahl"
+
+#: webinterface/templates/order.html:44
+msgid "Total Price:"
+msgstr "Ganzer Preis:"
+
+#: webinterface/templates/order.html:52
+msgid "Additional Notes (Optional)"
+msgstr "Zusätzliche Notizen (Optional)"
+
+#: webinterface/templates/order.html:57
+msgid "Place order"
+msgstr "Bestellung aufgeben"
 
 #: webinterface/templates/order_successful.html:6
 msgid "Thanks for your order"
 msgstr "Danke für ihre Bestellung"
 
-#: webinterface/templates/privacy.html:5
-msgid "Privacy Policy"
-msgstr "Datenschutz"
+#: webinterface/templates/order_successful.html:10
+msgid "Order Conformation"
+msgstr "Bestellungsbestätigung"
+
+#: webinterface/templates/order_successful.html:12
+msgid "Your order was successful!"
+msgstr "Ihre Bestellung war erfolgreich!"
+
+#: webinterface/templates/order_successful.html:13
+msgid "Your order is in about"
+msgstr "Ihre Bestellung ist in ungefähr"
+
+#: webinterface/templates/order_successful.html:13
+msgid "read for pickup."
+msgstr "bereit zum abholen."
+
+#: webinterface/templates/order_successful.html:14
+#, fuzzy
+#| msgid "Thanks for choosing Pizzaway"
+msgid "Thanks for choosing Pizzaway."
+msgstr "Danke dass Sie Pizzaway gewählt haben."
+
+#: webinterface/templates/order_successful.html:15
+msgid "We're looking forward to serving you."
+msgstr "Wir freuen uns daruf Sie zu bedienen."
+
+#: webinterface/templates/order_successful.html:19
+msgid "Back to the start"
+msgstr "Zurück zum Start"

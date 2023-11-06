@@ -1,0 +1,38 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-06 10:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: webinterface/templates/contact.html:6
+msgid "Contact"
+msgstr "Kontakt"
+
+#: webinterface/templates/imprint.html:6
+msgid "Imprint"
+msgstr "Impressum"
+
+#: webinterface/templates/order.html:6
+msgid "Order"
+msgstr "Bestellen"
+
+#: webinterface/templates/order_successful.html:6
+msgid "Thanks for your order"
+msgstr "Danke für ihre Bestellung"
+
+#: webinterface/templates/privacy.html:5
+msgid "Privacy Policy"
+msgstr "Datenschutz"

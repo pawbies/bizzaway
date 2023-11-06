@@ -2,7 +2,7 @@
 #some smart people might have figured that out already when they saw the filename
 from pathlib import Path
 import os
-
+from django.utils.translation import gettext as _
 
 #base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,10 +43,19 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+LANGUAGES = [
+    ("de", "Deutsch"),
+    ("en", "English"),
+]
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, "webinterface", "locale"),
 ]
 
 #another thing you can probably guess is
@@ -99,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 #the language of the site
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-en'
 
 #timezone of the server
 TIME_ZONE = 'Europe/Berlin'

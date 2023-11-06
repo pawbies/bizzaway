@@ -1,6 +1,9 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Order Pizzas{% endblock %}
+
+{% block header %}{% translate "Order" %}{% endblock %}
 
 {% block content %}
   <section class="p-4 md:p-8 w-full md:w-3/4 mx-auto">

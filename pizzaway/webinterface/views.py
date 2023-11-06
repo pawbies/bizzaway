@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http.response import HttpResponseRedirect, Http404, HttpResponse
 from django.http.request import HttpRequest
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from .models import Order, Pizza, PizzaOrder
 from employee.models import Employee
@@ -11,6 +12,7 @@ import math
 #the most of our views are rather basic
 
 def index(request: HttpRequest):
+    print(_("Imprint"))
     return render(request, "index.html", {"pizzas": Pizza.objects.all()})
 
 def order(request: HttpRequest):

@@ -1,5 +1,6 @@
 default:
 	npx tailwindcss -i static/src_css.css -o static/out.css
+	python manage.py test
 	python manage.py runserver
 
 tailwind:

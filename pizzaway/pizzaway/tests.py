@@ -49,32 +49,32 @@ class Tests(TestCase):
         self.assertEqual(PizzaOrder.objects.all().count(), 0)
 
     def test_index(self):
-        response = self.client.get('/', follow=True)
+        response = self.client.get('/en/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "index.html")
 
     def test_order(self):
-        response = self.client.get('/order/', follow=True)
+        response = self.client.get('/en/order/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "order.html")
 
     def test_contact(self):
-        response = self.client.get('/contact/', follow=True)
+        response = self.client.get('/en/contact/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "contact.html")
 
     def test_imprint(self):
-        response = self.client.get('/imprint/', follow=True)
+        response = self.client.get('/en/imprint/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "imprint.html")
 
     def test_privacy(self):
-        response = self.client.get('/privacy/', follow=True)
+        response = self.client.get('/en/privacy/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "privacy.html")
 
     def test_order_successful(self):
-        response = self.client.get('/order_successful', follow=True)
+        response = self.client.get('/en/order_successful', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "order_successful.html")
 
@@ -89,7 +89,7 @@ class Tests(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_order_add(self):
-        response = self.client.post("/order/add/", data={'csrfmiddlewaretoken': ['6cYfjFAbP7PDDPKR8LTjqgHiIzfdoFEr1MwtEvpYRIXQqmKc5vyAkssXESqY2w8T'], 'customer': ['Robin Vita'], 'email': ['robin.vita@gmail.com'], 'selected_pizzas[]': ['Ham pizza'], 'Ham pizza_amount': ['3'], 'notes': ['make it spicy']})
+        response = self.client.post("/en/order/add/", data={'csrfmiddlewaretoken': ['6cYfjFAbP7PDDPKR8LTjqgHiIzfdoFEr1MwtEvpYRIXQqmKc5vyAkssXESqY2w8T'], 'customer': ['Robin Vita'], 'email': ['robin.vita@gmail.com'], 'selected_pizzas[]': ['Ham pizza'], 'Ham pizza_amount': ['3'], 'notes': ['make it spicy']})
         self.assertEqual(response.status_code, 302)
     
     def test_order_remove(self):
@@ -100,7 +100,7 @@ class Tests(TestCase):
         
         self.assertEqual(Order.objects.all().count(), 1)
         
-        response = self.client.post("/order/remove/", data={'order_id': [str(order.pk)], 'emp_id': [str(employee.pk)]})
+        response = self.client.post("/en/order/remove/", data={'order_id': [str(order.pk)], 'emp_id': [str(employee.pk)]})
         employee.refresh_from_db()
 
         self.assertEqual(Order.objects.all().count(), 0)

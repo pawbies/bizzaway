@@ -8,7 +8,7 @@
 {% block content %}
   <section class="p-4 md:p-8 w-full md:w-3/4 mx-auto">
     <h1 class="text-2xl md:text-4xl font-semibold mb-4">{% translate "Place your Order" %}</h1>
-    <form action="{% url 'add_order' %}" method="post">
+    <form action="{% url 'add_order' language %}" method="post">
       {% csrf_token %}
 
       

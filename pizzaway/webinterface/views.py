@@ -3,6 +3,7 @@ from django.http.response import HttpResponseRedirect, Http404, HttpResponse
 from django.http.request import HttpRequest
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django.utils.translation import activate
 
 from .models import Order, Pizza, PizzaOrder
 from employee.models import Employee
@@ -11,27 +12,32 @@ import math
 
 #the most of our views are rather basic
 
-def index(request: HttpRequest):
-    print(_("Imprint"))
-    return render(request, "index.html", {"pizzas": Pizza.objects.all()})
+def index(request: HttpRequest, language_code):
+    activate(language_code)
+    return render(request, "index.html", {"pizzas": Pizza.objects.all(), "language": language_code})
 
-def order(request: HttpRequest):
-    return render(request, "order.html", {"pizzas": Pizza.objects.all()})
+def order(request: HttpRequest, language_code):
+    activate(language_code)
+    return render(request, "order.html", {"pizzas": Pizza.objects.all(), "language": language_code})
 
-def contact(request: HttpRequest):
-    return render(request, "contact.html", {})
+def contact(request: HttpRequest, language_code):
+    activate(language_code)
+    return render(request, "contact.html", {"language": language_code})
 
-def imprint(request: HttpRequest):
-    return render(request, "imprint.html", {})
+def imprint(request: HttpRequest, language_code):
+    activate(language_code)
+    return render(request, "imprint.html", {"language": language_code})
 
-def privacy(request: HttpRequest):
-    return render(request, "privacy.html", {})
+def privacy(request: HttpRequest, language_code):
+    activate(language_code)
+    return render(request, "privacy.html", {"language": language_code})
 
-def order_successful(request):
-    return render(request, "order_successful.html", {"time": request.GET.get("time")})
+def order_successful(request, language_code):
+    activate(language_code)
+    return render(request, "order_successful.html", {"time": request.GET.get("time"), "language": language_code})
 
 
-def add_order(request: HttpRequest): #this is the only interesting thing
+def add_order(request: HttpRequest, language_code): #this is the only interesting thing
     #first we retrieve all the arguments from the post list
 
     name = request.POST.get("customer")
@@ -58,10 +64,10 @@ def add_order(request: HttpRequest): #this is the only interesting thing
     
 
         
-    return HttpResponseRedirect(f"{reverse('order_successful')}?time={math.ceil(pizza_amount/4)*15}") #and we look up what the url for the successful page is and redirect the user there
+    return HttpResponseRedirect(f"{reverse('order_successful', kwargs={'language_code': language_code})}?time={math.ceil(pizza_amount/4)*15}") #and we look up what the url for the successful page is and redirect the user there
     #oh yeah and we assume one pizza takes 10 minutes to make and we can make 4 at the same time
 
-def remove_order(request: HttpRequest):
+def remove_order(request: HttpRequest, language_code):
     #delete the order associated with the order_id in the post list
     order = get_object_or_404(Order, id=request.POST.get("order_id"))
     order.delete()

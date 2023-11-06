@@ -31,6 +31,7 @@ def order_successful(request):
 
 def add_order(request: HttpRequest): #this is the only interesting thing
     #first we retrieve all the arguments from the post list
+
     name = request.POST.get("customer")
     email = request.POST.get("email")
     notes = request.POST.get("notes")

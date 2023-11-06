@@ -1,6 +1,5 @@
 let now = new Date();
 
-
 let startTime = new Date();
 startTime.setHours(10, 0, 0); //open from 10am to 9pm
 let endTime = new Date();

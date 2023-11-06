@@ -18,11 +18,9 @@ class Employee(models.Model):
 #and those things make it so that for each user an employee account is created
 @receiver(post_save, sender=User)
 def create_employee(sender, instance, created, **kwargs):
-    print("create employee")
     if created:
         Employee.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
 def save_employee(sender, instance, **kwargs):
-    print("save employee")
     instance.employee.save()

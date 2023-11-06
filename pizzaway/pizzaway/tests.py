@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 
 
 class Tests(TestCase):
+    user = None
     dough = None
     ham = None
     tomato_sauce = None
     pizza = None
 
     def setUp(self):
-        User.objects.create_user(username="robin", password="robin")
-
+        self.user = User.objects.create_user(username="robin", password="robin")
         self.dough = Ingredient.objects.create(name="dough", protein=5, carbs=50, fat=10)
         self.ham = Ingredient.objects.create(name="ham", protein=20, carbs=0, fat=3)
         self.tomato_sauce = Ingredient.objects.create(name="tomato sauce", protein=0, carbs=5, fat=1)
@@ -40,14 +40,13 @@ class Tests(TestCase):
         self.assertEqual(pizza.get_fat(), 14)
         self.assertEqual(pizza.get_calories(), 432)
 
-    def test_order__model(self):
+    def test_order_model(self):
         order = Order.objects.create(customer="Robin Vita", email="robin.vita@gmail.com", notes="please more spicy")
         pizzaOrder = PizzaOrder.objects.create(pizza=self.pizza, order=order, amount=10)
         self.assertEqual(pizzaOrder.pizza.name, "Ham pizza")
         self.assertEqual(PizzaOrder.objects.all().count(), 1)
         order.delete()
         self.assertEqual(PizzaOrder.objects.all().count(), 0)
-
 
     def test_index(self):
         response = self.client.get('/', follow=True)
@@ -87,4 +86,23 @@ class Tests(TestCase):
 
         self.client.logout()
         response = self.client.get("/mitarbeiter/")
+        self.assertEqual(response.status_code, 302)
+
+    def test_order_add(self):
+        response = self.client.post("/order/add/", data={'csrfmiddlewaretoken': ['6cYfjFAbP7PDDPKR8LTjqgHiIzfdoFEr1MwtEvpYRIXQqmKc5vyAkssXESqY2w8T'], 'customer': ['Robin Vita'], 'email': ['robin.vita@gmail.com'], 'selected_pizzas[]': ['Ham pizza'], 'Ham pizza_amount': ['3'], 'notes': ['make it spicy']})
+        self.assertEqual(response.status_code, 302)
+    
+    def test_order_remove(self):
+        order = Order.objects.create(customer="Robin Vita", email="robin.vita@gmail.com", notes="hey ho")
+        employee = Employee.objects.get(user=self.user)
+        start_value = employee.orders_cooked
+        
+        
+        self.assertEqual(Order.objects.all().count(), 1)
+        
+        response = self.client.post("/order/remove/", data={'order_id': [str(order.pk)], 'emp_id': [str(employee.pk)]})
+        employee.refresh_from_db()
+
+        self.assertEqual(Order.objects.all().count(), 0)
+        self.assertEqual(employee.orders_cooked, start_value+1)
         self.assertEqual(response.status_code, 302)

@@ -19,107 +19,107 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: webinterface/templates/base.html:20
 msgid "Welcome to our Pizzeria"
-msgstr ""
+msgstr "Bienvenidos a nuestra pizzería."
 
 #: webinterface/templates/base.html:22 webinterface/templates/order.html:6
 msgid "Order"
-msgstr ""
+msgstr "Orden"
 
 #: webinterface/templates/base.html:23
 msgid "Employees"
-msgstr ""
+msgstr "Empleados"
 
 #: webinterface/templates/base.html:34 webinterface/templates/contact.html:4
 #: webinterface/templates/contact.html:6
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #: webinterface/templates/base.html:35 webinterface/templates/imprint.html:4
 #: webinterface/templates/imprint.html:6
 msgid "Imprint"
-msgstr ""
+msgstr "Imprimir"
 
 #: webinterface/templates/base.html:36 webinterface/templates/privacy.html:4
 #: webinterface/templates/privacy.html:5 webinterface/templates/privacy.html:9
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Política de privacidad"
 
 #: webinterface/templates/index.html:6
 msgid "Main page"
-msgstr ""
+msgstr "Pagina principal"
 
 #: webinterface/templates/index.html:51
 msgid "Calories"
-msgstr ""
+msgstr "Calorías"
 
 #: webinterface/templates/index.html:52
 msgid "Carbs"
-msgstr ""
+msgstr "Carbohidratos"
 
 #: webinterface/templates/index.html:53
 msgid "Protein"
-msgstr ""
+msgstr "Proteína"
 
 #: webinterface/templates/index.html:54
 msgid "Fat"
-msgstr ""
+msgstr "Grasa"
 
 #: webinterface/templates/order.html:10
 msgid "Place your Order"
-msgstr ""
+msgstr "Haga su pedido"
 
 #: webinterface/templates/order.html:16
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: webinterface/templates/order.html:21
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: webinterface/templates/order.html:27
 msgid "Select Pizzas"
-msgstr ""
+msgstr "Seleccionar pizzas"
 
 #: webinterface/templates/order.html:44
 msgid "Total Price:"
-msgstr ""
+msgstr "Precio total"
 
 #: webinterface/templates/order.html:52
 msgid "Additional Notes (Optional)"
-msgstr ""
+msgstr "Notas adicionales (opcional"
 
 #: webinterface/templates/order.html:57
 msgid "Place order"
-msgstr ""
+msgstr "Haga pedido"
 
 #: webinterface/templates/order_successful.html:6
 msgid "Thanks for your order"
-msgstr ""
+msgstr "Gracias por tu orden"
 
 #: webinterface/templates/order_successful.html:10
 msgid "Order Conformation"
-msgstr ""
+msgstr "Conformación del pedido"
 
 #: webinterface/templates/order_successful.html:12
 msgid "Your order was successful!"
-msgstr ""
+msgstr "Tu pedido fue exitoso"
 
 #: webinterface/templates/order_successful.html:13
 msgid "Your order is in about"
-msgstr ""
+msgstr "Su pedido estará listo en aproximadamente"
 
 #: webinterface/templates/order_successful.html:13
 msgid "read for pickup."
-msgstr ""
+msgstr "para ser recogido."
 
 #: webinterface/templates/order_successful.html:14
 msgid "Thanks for choosing Pizzaway."
-msgstr ""
+msgstr "Gracias por elegir Pizzaway"
 
 #: webinterface/templates/order_successful.html:15
 msgid "We're looking forward to serving you."
-msgstr ""
+msgstr "Estamos deseando servirle"
 
 #: webinterface/templates/order_successful.html:19
 msgid "Back to the start"
-msgstr ""
+msgstr "De vuelta al principio"

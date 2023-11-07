@@ -142,4 +142,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 LANGUAGES = [
     ("de", _("German")),
     ("en", _("English")),
+    ("es", _("Spanish")),
 ]

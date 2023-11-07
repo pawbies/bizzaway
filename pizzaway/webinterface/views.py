@@ -10,6 +10,10 @@ from employee.models import Employee
 
 import math
 
+
+def set_language(request: HttpRequest):
+    return HttpResponseRedirect(reverse(index, kwargs={'language_code': request.LANGUAGE_CODE}))
+
 #the most of our views are rather basic
 
 def index(request: HttpRequest, language_code):

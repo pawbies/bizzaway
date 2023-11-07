@@ -3,9 +3,6 @@
 soooo....
 yeah welcome to pizzaway
 
-i guess this repo will stay private for some time so i can write whatever i want in to readme  
-yay
-
 
 Short description:  
 pizzaway is the best pizzeria in the whole entire universe

@@ -1,8 +1,8 @@
 default:
 	npx tailwindcss -i static/src_css.css -o static/out.css
-	python manage.py test
-	python manage.py check
-	python manage.py runserver
+	python manage.py test -v 3 --timing
+	python manage.py check --force-color -v 3
+	python manage.py runserver --skip-checks
 
 tailwind:
 	npx tailwindcss -i static/src_css.css -o static/out.css --watch

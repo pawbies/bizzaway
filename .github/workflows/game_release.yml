@@ -23,7 +23,6 @@ jobs:
         cd game/static
         make
         cd ../..
-        cp game/static/game playme
 
     - name: Upload Binary as Artifact
       uses: actions/upload-artifact@v2
@@ -35,6 +34,7 @@ jobs:
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: playme
+        files: game/static/playme
+               game/static/playme/res
         tag_name: 'v0.1'
         token: ${{ secrets.GITHUB_TOKEN }}

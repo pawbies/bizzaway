@@ -26,7 +26,7 @@ jobs:
 
     - name: Create Release Archive
       run: |
-        tar -czvf archive.tar.gz --files-from <(echo -e "game/static/game\n./game/static/res/")
+        tar -czvf game.tar.gz --files-from <(echo -e "game/static/game\n./game/static/res/")
       shell: bash
 
     - name: Create Release

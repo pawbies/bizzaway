@@ -1,6 +1,8 @@
 name: Relase Game Binary
 on:
-  push:
+  push: 
+    tags:
+      - '*'
     branches:
       - main
 

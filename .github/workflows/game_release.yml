@@ -25,10 +25,8 @@ jobs:
         make
         cd ../..
         
-        cp game/static/game ./game
 
-    - name: Upload Binary as Artifact
-      uses: actions/upload-artifact@v2
+    - name: Upload Release
+      uses: ncipollo/release-action@v1
       with:
-        name: release-binary
-        path: ./game
+        artifacts: 'game/static/game'

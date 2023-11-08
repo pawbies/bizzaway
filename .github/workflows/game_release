@@ -1,0 +1,37 @@
+name: Release Game
+on:
+  push:
+    branches:
+      -main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get install libsdl2-dev libsdl2-image-dev
+
+    - name: Build and Create Binary
+      run: |
+        cd game/static
+        make
+        cd ../..
+        cp game/static/game playme
+
+    - name: Upload Binary as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: release-binary
+        path: playme
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: playme
+        token: ${{ secrets.GITHUB_TOKEN }}

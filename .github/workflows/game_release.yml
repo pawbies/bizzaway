@@ -33,4 +33,5 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: playme
+        tag_name: 'v0.1'
         token: ${{ secrets.GITHUB_TOKEN }}

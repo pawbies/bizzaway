@@ -1,0 +1,27 @@
+name: Relase Game Binary
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Build and Create Binary
+      run: |
+        cd game
+        make
+        cd ..
+        
+        cp game/game ./game
+
+    - name: Upload Binary as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: release-binary
+        path: ./game

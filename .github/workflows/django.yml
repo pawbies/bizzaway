@@ -29,4 +29,4 @@ jobs:
         python -m pip install Pillow
     - name: Run Tests
       run: |
-        python pizzaway/manage.py test
+        python manage.py test -v 3

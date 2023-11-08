@@ -26,6 +26,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install django
         python -m pip install pytz
+        python -m pip install Pillow
     - name: Run Tests
       run: |
         python pizzaway/manage.py test

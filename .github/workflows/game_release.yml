@@ -14,11 +14,11 @@ jobs:
 
     - name: Build and Create Binary
       run: |
-        cd game
+        cd game/static
         make
-        cd ..
+        cd ../..
         
-        cp game/game ./game
+        cp game/static/game ./game
 
     - name: Upload Binary as Artifact
       uses: actions/upload-artifact@v2

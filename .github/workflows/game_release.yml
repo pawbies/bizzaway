@@ -1,13 +1,9 @@
 name: Relase Game Binary
-on:
-  push: 
+
+on: 
+  push:
     tags:
-      - '*'
-    branches:
-      - main
-
-
-
+    - '*'
 
 jobs:
   build:

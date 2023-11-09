@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-06 18:42+0100\n"
+"POT-Creation-Date: 2023-11-09 18:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,7 @@ msgid "Contact"
 msgstr "Kontakt"
 
 #: webinterface/templates/base.html:35 webinterface/templates/imprint.html:4
-#: webinterface/templates/imprint.html:6 webinterface/views.py:15
+#: webinterface/templates/imprint.html:6
 msgid "Imprint"
 msgstr "Impressum"
 

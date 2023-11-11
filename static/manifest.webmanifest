@@ -1,0 +1,16 @@
+{
+    "name": "Pizzaway",
+    "short_name": "Pizzaway",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#121212",
+    "description": "An webapp for ordering pizzas.",
+    "icons": [
+      {
+        "src": "img/LOGO.png",
+        "sizes": "48x48",
+        "type": "image/png"
+      }
+    ]
+  }
+  

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Pizzaway{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'out.css' %}">
+    <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
     {% block extra %}{% endblock %} <!-- if i need something in the head -->
 </head>
 <body class="flex flex-col gap-3 min-h-screen bg-light-pizza-yellow dark:bg-light-pizza-yellow-dark">

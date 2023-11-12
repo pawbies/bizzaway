@@ -109,10 +109,46 @@ Item Game::combineItems(Item &item, Item &otherItem)
     Type t1 = item.getType();
     Type t2 = otherItem.getType();
 
+    int posX = item.getDst()->x;
+    int posY = item.getDst()->y;
+
     for (std::pair<std::pair<Type,Type>, Type> combination : m_combinations)
     {
         if ((combination.first.first == t1 && combination.first.second == t2) || (combination.first.first == t2 && combination.first.second == t1))
-            return Item(item.getDst()->x, item.getDst()->y, 100, 100, combination.second);
+        {
+          if (combination.second == Type::Milk)
+          {
+            if (t1 == Type::Cow)
+              otherItem.setInGame(false);
+            else if (t1 == Type::Grass)
+              item.setInGame(false);
+            else
+              std::cerr << "Yo i have no idea how this happened sorry bro" << std::endl;
+          }
+          else if (combination.second == Type::Sauce || combination.second == Type::Flour)
+          {
+            if (t1 == Type::Blender)
+              otherItem.setInGame(false);
+            else if (t2 == Type::Blender)
+              item.setInGame(false);
+            else 
+              std::cerr << "how...?" << std::endl;
+          }
+          else if (combination.second == Type::Cheese || combination.second == Type::Dough)
+          {
+            if (t1 == Type::Milk)
+              otherItem.setInGame(false);
+            else if (t2 == Type::Milk)
+              item.setInGame(false);
+            else
+              std::cerr << "huh" << std::endl;
+          }
+          else {
+            item.setInGame(false);
+            otherItem.setInGame(false);
+          }
+          return Item(posX, posY, 100, 100, combination.second);
+        }
     }
 
     return Item();
@@ -124,7 +160,8 @@ void Game::draw()
 
     for (int i = m_items.size()-1; i >= 0; i--)
     {
-        SDL_RenderCopy(m_renderer, m_textures.at(m_items[i].getType()), nullptr, m_items[i].getDst());
+      if (!m_items[i].getInGame()) continue;
+      SDL_RenderCopy(m_renderer, m_textures.at(m_items[i].getType()), nullptr, m_items[i].getDst());
     }
 
     SDL_RenderPresent(m_renderer);

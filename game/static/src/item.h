@@ -45,6 +45,7 @@ enum class Type
 class Item
 {
 private:
+    bool m_inGame;
     SDL_Rect m_dst;
     Type m_type;
 
@@ -58,4 +59,6 @@ public:
 
 
     void setPos(int p_x, int p_y);
+    bool getInGame();
+    void setInGame(bool p_inGame);
 };

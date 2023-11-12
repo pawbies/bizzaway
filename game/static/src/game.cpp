@@ -51,7 +51,11 @@ Game::Game(int p_width, int p_height, const char *p_title)
     m_textures.insert_or_assign(Type::Sauce,          IMG_LoadTexture(m_renderer, "res/sauce.png"         ));
     m_textures.insert_or_assign(Type::DNA,            IMG_LoadTexture(m_renderer, "res/dna.png"           ));
     m_textures.insert_or_assign(Type::Water,          IMG_LoadTexture(m_renderer, "res/water.png"         ));
+#ifdef WEEB_MODE
+    m_textures.insert_or_assign(Type::Cow,            IMG_LoadTexture(m_renderer, "res/cow_girl.png"      ));
+#else
     m_textures.insert_or_assign(Type::Cow,            IMG_LoadTexture(m_renderer, "res/cow.png"           ));
+#endif
     m_textures.insert_or_assign(Type::Grass,          IMG_LoadTexture(m_renderer, "res/grass.png"         ));
     m_textures.insert_or_assign(Type::Milk,           IMG_LoadTexture(m_renderer, "res/milk.png"          ));
     m_textures.insert_or_assign(Type::WashingMachine, IMG_LoadTexture(m_renderer, "res/washingmachine.png"));

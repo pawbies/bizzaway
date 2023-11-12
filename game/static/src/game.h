@@ -2,8 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include <map>
-#include <algorithm>
+#include <unordered_map>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -25,7 +24,7 @@ private:
     SDL_Point m_offset;
     Item *m_itemToMove;
     std::vector<Item> m_items;
-    std::map<Type, SDL_Texture*> m_textures;
+    std::unordered_map<Type, SDL_Texture*> m_textures;
     std::vector<std::pair<std::pair<Type, Type>, Type>> m_combinations;
 
     Item combineItems(Item &item, Item &otherItem);

@@ -119,37 +119,25 @@ Item Game::combineItems(Item &item, Item &otherItem)
     {
         if ((combination.first.first == t1 && combination.first.second == t2) || (combination.first.first == t2 && combination.first.second == t1))
         {
-          if (combination.second == Type::Milk)
+          item.increaseTimesCombined();
+          otherItem.increaseTimesCombined();
+          if (t1 == Type::Cow || t1 == Type::Blender || t1 == Type::Milk)
           {
-            if (t1 == Type::Cow)
-              otherItem.setInGame(false);
-            else if (t1 == Type::Grass)
-              item.setInGame(false);
-            else
-              std::cerr << "Yo i have no idea how this happened sorry bro" << std::endl;
+            if (item.getTimesCombined() >= 2) item.setInGame(false);
           }
-          else if (combination.second == Type::Sauce || combination.second == Type::Flour)
+          else
           {
-            if (t1 == Type::Blender)
-              otherItem.setInGame(false);
-            else if (t2 == Type::Blender)
-              item.setInGame(false);
-            else 
-              std::cerr << "how...?" << std::endl;
+            if (item.getTimesCombined() >= 1) item.setInGame(false);
           }
-          else if (combination.second == Type::Cheese || combination.second == Type::Dough)
+          if (t2 == Type::Cow || t2 == Type::Blender || t2 == Type::Milk)
           {
-            if (t1 == Type::Milk)
-              otherItem.setInGame(false);
-            else if (t2 == Type::Milk)
-              item.setInGame(false);
-            else
-              std::cerr << "huh" << std::endl;
+            if (otherItem.getTimesCombined() >= 2) otherItem.setInGame(false);
           }
-          else {
-            item.setInGame(false);
-            otherItem.setInGame(false);
+          else
+          {
+            if (otherItem.getTimesCombined() >= 1) otherItem.setInGame(false);
           }
+
           return Item(posX, posY, 100, 100, combination.second);
         }
     }

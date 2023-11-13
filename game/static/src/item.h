@@ -48,6 +48,7 @@ private:
     bool m_inGame;
     SDL_Rect m_dst;
     Type m_type;
+    short m_timesCombined;
 
 public:
     Item(int p_x, int p_y, int p_w, int p_h, Type p_type);
@@ -61,4 +62,6 @@ public:
     void setPos(int p_x, int p_y);
     bool getInGame();
     void setInGame(bool p_inGame);
+    short getTimesCombined();
+    void increaseTimesCombined();
 };

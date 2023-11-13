@@ -1,5 +1,4 @@
 #include "game.h"
-
 #define WEEB_MODE
 
 Game::Game(int p_width, int p_height, const char *p_title)
@@ -169,7 +168,6 @@ void Game::draw()
     }
 
     SDL_RenderPresent(m_renderer);
-    //SDL_Delay(10);
 }
 
 void Game::handleInput()
@@ -189,13 +187,14 @@ void Game::handleInput()
         {
             m_mousePressed = true;
         
-            for (Item &i : m_items)
+            for (int i = 0; i < m_items.size(); i++)
             {
-                if (SDL_PointInRect(&m_mousePos, i.getDst()))
+                if (SDL_PointInRect(&m_mousePos, m_items[i].getDst()))
                 {
-                    m_itemToMove = &i;
-                    m_offset.x = m_mousePos.x - i.getDst()->x;
-                    m_offset.y = m_mousePos.y - i.getDst()->y;
+                    std::rotate(m_items.begin(), m_items.begin()+i, m_items.begin()+i+1);
+                    m_itemToMove = &m_items[0];
+                    m_offset.x = m_mousePos.x - m_itemToMove->getDst()->x;
+                    m_offset.y = m_mousePos.y - m_itemToMove->getDst()->y;
                     break;
                 }
             }
@@ -213,26 +212,28 @@ void Game::handleInput()
         if (evt.type == SDL_MOUSEBUTTONUP && evt.button.button == SDL_BUTTON_LEFT)
         {
             m_mousePressed = false;
-
-            for (Item &item : m_items)
+            if (m_itemToMove != nullptr)
             {
-                if (SDL_HasIntersection(m_itemToMove->getDst(), item.getDst()))
-                {
-                    Item combination = combineItems(*m_itemToMove, item);
+              for (Item &item : m_items)
+              {
+                  if (SDL_HasIntersection(m_itemToMove->getDst(), item.getDst()))
+                  {
+                     Item combination = combineItems(*m_itemToMove, item);
 
-                    if (combination.getType() == Type::Failed || combination.getType() == Type::Undefined)
-                        continue;
+                      if (combination.getType() == Type::Failed || combination.getType() == Type::Undefined)
+                          continue;
                     
-                    if (combination.getType() == Type::Pizza)
-                        m_items.clear();
+                      if (combination.getType() == Type::Pizza)
+                          m_items.clear();
                     
-                    bool itemExists = false;
-                    for (int i = 0; i < m_items.size(); i++)
-                        if (m_items[i].getType() == combination.getType())
-                            itemExists = true;
-                    if (!itemExists)
-                        m_items.insert(m_items.begin(), combination);
-                }
+                      bool itemExists = false;
+                      for (int i = 0; i < m_items.size(); i++)
+                          if (m_items[i].getType() == combination.getType())
+                              itemExists = true;
+                      if (!itemExists)
+                          m_items.insert(m_items.begin(), combination);
+                  }
+              }
             }
 
             m_itemToMove = nullptr;

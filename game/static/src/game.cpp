@@ -117,7 +117,7 @@ Item Game::combineItems(Item &item, Item &otherItem)
 
     for (std::pair<std::pair<Type,Type>, Type> combination : m_combinations)
     {
-        if ((combination.first.first == t1 && combination.first.second == t2) || (combination.first.first == t2 && combination.first.second == t1))
+        if (((combination.first.first == t1 && combination.first.second == t2) || (combination.first.first == t2 && combination.first.second == t1)) && (item.getInGame() && otherItem.getInGame()))
         {
           item.increaseTimesCombined();
           otherItem.increaseTimesCombined();
@@ -177,7 +177,7 @@ void Game::handleInput()
         
             for (int i = 0; i < m_items.size(); i++)
             {
-                if (SDL_PointInRect(&m_mousePos, m_items[i].getDst()))
+                if (SDL_PointInRect(&m_mousePos, m_items[i].getDst()) && m_items[i].getInGame())
                 {
                     std::rotate(m_items.begin(), m_items.begin()+i, m_items.begin()+i+1);
                     m_itemToMove = &m_items[0];

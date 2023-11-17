@@ -80,7 +80,7 @@ Game::Game(int p_width, int p_height, const char *p_title)
     m_textures.insert_or_assign(Type::Oven,           IMG_LoadTexture(m_renderer, "res/oven.png"          ));
     m_textures.insert_or_assign(Type::Pizza,          IMG_LoadTexture(m_renderer, "res/pizza.png"         ));
 
-    for (std::pair<Type, SDL_Texture*> pair : m_textures)
+    for (const std::pair<Type, SDL_Texture*> &pair : m_textures)
     {
         if (pair.second == nullptr)
             std::cerr << "Failed to load image for " << (int)pair.first << std::endl;
@@ -115,7 +115,7 @@ Item Game::combineItems(Item &item, Item &otherItem)
     int posX = item.getDst()->x;
     int posY = item.getDst()->y;
 
-    for (std::pair<std::pair<Type,Type>, Type> combination : m_combinations)
+    for (const std::pair<std::pair<Type,Type>, Type>& combination : m_combinations)
     {
         if (((combination.first.first == t1 && combination.first.second == t2) || (combination.first.first == t2 && combination.first.second == t1)) && (item.getInGame() && otherItem.getInGame()))
         {

@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.translation import activate
 
-from .models import Order, Pizza, PizzaOrder
+from .models import Order, Pizza, PizzaOrder, Question
 from employee.models import Employee
 
 import math
@@ -39,6 +39,11 @@ def privacy(request: HttpRequest, language_code):
 def order_successful(request, language_code):
     activate(language_code)
     return render(request, "order_successful.html", {"time": request.GET.get("time"), "language": language_code})
+
+def quiz(request, language_code):
+    activate(language_code)
+    questions = Question.objects.all()
+    return render(request, "quiz.html", {"language": language_code, "questions": questions})
 
 
 def add_order(request: HttpRequest, language_code): #this is the only interesting thing

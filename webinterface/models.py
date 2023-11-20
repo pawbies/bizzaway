@@ -110,4 +110,35 @@ class PizzaOrder(models.Model):
 
     def __str__(self):
         return f'{self.order.customer}`s {self.pizza.name}'
+
+
     
+class Answer(models.Model):
+    text = models.CharField(max_length=50, blank=False, null=False)
+
+
+    def __str__(self):
+        return self.text
+
+
+class Question(models.Model):
+    title = models.CharField(max_length=100, blank=False, null=False)
+    subtitle = models.CharField(max_length=300, blank=False, null=False)
+
+    
+    class Types(models.Choices):
+        Radio = 'Radio'
+        Check = 'Check'
+        Text = 'Text'
+        Number = 'Number'
+
+    type = models.CharField(
+        max_length=15,
+        choices=Types.choices,
+        default=Types.Text,
+    )
+
+    answers = models.ManyToManyField(Answer, blank=True)
+
+    def __str__(self):
+        return self.title

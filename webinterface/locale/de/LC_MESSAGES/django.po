@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-09 18:16+0100\n"
+"POT-Creation-Date: 2023-11-20 10:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,29 +18,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: webinterface/templates/base.html:20
+#: webinterface/templates/base.html:22
 msgid "Welcome to our Pizzeria"
 msgstr "Willkommen zu unserer Pizzeria"
 
-#: webinterface/templates/base.html:22 webinterface/templates/order.html:6
+#: webinterface/templates/base.html:24 webinterface/templates/order.html:6
 msgid "Order"
 msgstr "Bestellung"
 
-#: webinterface/templates/base.html:23
+#: webinterface/templates/base.html:25 webinterface/templates/quiz.html:4
+#: webinterface/templates/quiz.html:6
+msgid "Quiz"
+msgstr ""
+
+#: webinterface/templates/base.html:28
 msgid "Employees"
 msgstr "Mitarbeiter"
 
-#: webinterface/templates/base.html:34 webinterface/templates/contact.html:4
+#: webinterface/templates/base.html:40 webinterface/templates/contact.html:4
 #: webinterface/templates/contact.html:6
 msgid "Contact"
 msgstr "Kontakt"
 
-#: webinterface/templates/base.html:35 webinterface/templates/imprint.html:4
+#: webinterface/templates/base.html:41 webinterface/templates/imprint.html:4
 #: webinterface/templates/imprint.html:6
 msgid "Imprint"
 msgstr "Impressum"
 
-#: webinterface/templates/base.html:36 webinterface/templates/privacy.html:4
+#: webinterface/templates/base.html:42 webinterface/templates/privacy.html:4
 #: webinterface/templates/privacy.html:5 webinterface/templates/privacy.html:9
 msgid "Privacy Policy"
 msgstr "Datenschutz"
@@ -126,3 +131,13 @@ msgstr "Wir freuen uns daruf Sie zu bedienen."
 #: webinterface/templates/order_successful.html:19
 msgid "Back to the start"
 msgstr "Zurück zum Start"
+
+#: webinterface/templates/quiz.html:10
+#, fuzzy
+#| msgid "Welcome to our Pizzeria"
+msgid "Welcome to the Pizza Quiz"
+msgstr "Willkommen zu unserer Pizzeria"
+
+#: webinterface/templates/quiz.html:44
+msgid "Check Results"
+msgstr ""

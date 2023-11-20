@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Quiz" %}{% endblock %}
+
+{% block header %}{% translate "Quiz" %}{% endblock %}
+
+{% block content %}
+<div id="wrapper" class="w-full mx-auto p-8 bg-white dark:bg-black rounded-lg shadow-md">
+    <p class="text-center text-3xl font-semibold mb-6">{% translate "Welcome to the Pizza Quiz" %}</p>
+
+    <div id="questions" class="space-y-6">
+        <form>
+            {% for question in questions %}
+            <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+                <p class="text-lg text-center font-semibold mb-2">{{ question.title }}</p>
+                <p class="text-sm text-center text-gray-400">{{ question.subtitle }}</p>
+
+                {% if question.type == 'Radio' %}
+                <div class="mt-4 flex flex-col items-center">
+                    {% for answer in question.answers.all %}
+                    <label class="block mb-2"><input type="radio" id="{{ question.pk }}" name="{{ question.pk }}" value="{{ answer.text }}">{{ answer.text }}</label>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if question.type == 'Check' %}
+                <div class="mt-4 flex flex-col items-center">
+                    {% for answer in question.answers.all %}
+                    <label class="block mb-2"><input type="checkbox" id="{{ question.pk }}" name="{{ question.pk }}" value="{{ answer.text }}">{{ answer.text }}</label>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if question.type == 'Text' %}
+                <input type="text" id="{{ question.pk }}" name="{{ question.pk }}" class="w-full px-4 py-2 border border-gray-300 dark:border-black dark:bg-gray-300 rounded focus:outline-none focus:border-blue-500 mt-4 text-black text-center">
+                {% endif %}
+
+                {% if question.type == 'Number' %}
+                <input type="number" id="{{ question.pk }}" name="{{ question.pk }}" class="w-full px-4 py-2 border border-gray-300 dark:border-black dark:bg-gray-300 rounded focus:outline-none focus:border-blue-500 mt-4 text-black text-center">
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-6 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">{% translate "Check Results" %}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

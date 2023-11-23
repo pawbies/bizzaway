@@ -176,7 +176,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+#lib/ we need our lib directory
 lib64/
 parts/
 sdist/

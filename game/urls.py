@@ -7,5 +7,6 @@ from . import views
 
 urlpatterns = [
     path("", views.game, name="game"),
+    path("hub/", views.hub, name="hub"),
     re_path(r'^game.data$', serve, {'document_root': settings.BASE_DIR, 'path': 'game/static/game.data'}),
 ]

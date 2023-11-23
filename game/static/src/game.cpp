@@ -1,4 +1,5 @@
 #include "game.h"
+#include <SDL2/SDL_render.h>
 #define WEEB_MODE
 
 Game::Game(int p_width, int p_height, const char *p_title)
@@ -147,6 +148,7 @@ Item Game::combineItems(Item &item, Item &otherItem)
 
 void Game::draw()
 {
+    //SDL_SetRenderDrawColor(m_renderer, 255, 0, 255, 255);
     SDL_RenderClear(m_renderer);
 
     for (int i = m_items.size()-1; i >= 0; i--)

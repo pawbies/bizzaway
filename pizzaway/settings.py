@@ -126,7 +126,6 @@ STATIC_URL = 'static/'
 #other static directories that can be searched
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    BASE_DIR / "game" / "static",
 ]
 
 #default primary key field

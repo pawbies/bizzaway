@@ -1,4 +1,4 @@
-import * as THREE from './lib/three.js/build/three.module.js';
+import * as THREE from '../lib/three.js/build/three.module.js';
 import { OrbitControls } from './CustomOrbitControls.js'
 import { OBJLoader } from './CustomOBJLoader.js'
 import { MTLLoader } from './CustomMTLLoader.js'

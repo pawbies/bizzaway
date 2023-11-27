@@ -10,7 +10,7 @@ import {
 	TextureLoader,
 	Vector2,
 	SRGBColorSpace
-} from './lib/three.js/build/three.module.js';
+} from '../lib/three.js/build/three.module.js';
 
 /**
  * Loads a Wavefront .mtl file specifying materials

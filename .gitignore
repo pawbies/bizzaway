@@ -325,3 +325,4 @@ build/
 *.wasm
 *.data
 game.js
+tailwindcss

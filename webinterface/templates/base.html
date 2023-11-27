@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Pizzaway{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'out.css' %}">
+    <link rel="stylesheet" href="{% static 'css/out.css' %}">
     <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
     <link rel="shortcut icon" href="{% static 'img/LOGO.png' %}" type="image/x-icon">
     {% block extra %}{% endblock %} <!-- if i need something in the head -->
@@ -42,6 +42,6 @@
         <a href="{% url 'privacy' language %}" class="text-sm hover:underline transition duration-300 ease-in-out">{% translate "Privacy Policy" %}</a>
     </footer>
 
-    <script src="{% static 'block_order.js' %}"></script>
+    <script src="{% static 'js/block_order.js' %}"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 import * as THREE from './lib/three.js/build/three.module.js';
 import { OrbitControls } from './CustomOrbitControls.js'
+import { OBJLoader } from './CustomOBJLoader.js'
+import { MTLLoader } from './CustomMTLLoader.js'
 
 let width = window.innerWidth;
 let height = window.innerHeight;
@@ -17,7 +19,6 @@ window.onload = (evt) => {updateMouse(evt.clientX, evt.clientY);};
 window.onclick = () => {
     checkInsersects();
     if (intersects.length == 0) return;
-    console.log("yay");
     intersects[0].object.material.wireframe = !intersects[0].object.material.wireframe;
 }
 
@@ -27,6 +28,28 @@ const renderer = new THREE.WebGLRenderer();
 const raycaster = new THREE.Raycaster();
 const controls = new OrbitControls(camera, renderer.domElement);
 const mouse = new THREE.Vector2;
+const objLoader = new OBJLoader();
+const mtlLoader = new MTLLoader();
+
+mtlLoader.load("/static/objs/thing.mtl", 
+    function( materials )
+    {
+
+        materials.preload();
+
+        objLoader.setMaterials(materials);
+        objLoader.load(
+            '/static/objs/thing.obj',
+            (object) => {scene.add(object);},
+            (xhr) => {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded');},
+            (error) => {console.log(error);}
+        );
+    },
+    (xhr) => {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded');},
+    (error) => {console.log(error);}
+)
+
+
 const gridHelper = new THREE.GridHelper(250, 250);
 scene.add(gridHelper);
 
@@ -63,7 +86,5 @@ function animate()
 
     renderer.render(scene, camera);
     controls.update();
-
-    console.log(cube.rotation.x, cube.rotation.y);
 }
 animate();

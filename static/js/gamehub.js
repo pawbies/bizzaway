@@ -43,7 +43,6 @@ async function loadGLTF(path)
 {
     return new Promise((resolve, reject) => {
     gltfLoader.load(
-        //'/static/objs/ccube.glb',
         path,
 
         ( gltf ) => {
@@ -83,7 +82,7 @@ async function loadObj(objPath, mtlPath)
 
 
 /* Add Light */
-const light = new THREE.AmbientLight( 0xF0F0F0 ); // soft white light
+const light = new THREE.AmbientLight( 0xF0F0F0 );
 scene.add( light );
 
 

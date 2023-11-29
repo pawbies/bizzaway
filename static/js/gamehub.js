@@ -2,10 +2,21 @@ import * as THREE from '../lib/three.js/build/three.module.js';
 import { OrbitControls } from './CustomOrbitControls.js'
 import { OBJLoader } from './CustomOBJLoader.js'
 import { MTLLoader } from './CustomMTLLoader.js'
+import { GLTFLoader } from './CustomGLTFLoader.js'
 
 let width = window.innerWidth;
 let height = window.innerHeight;
 let intersects = [];
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); camera.position.z = 5;
+const renderer = new THREE.WebGLRenderer();
+const raycaster = new THREE.Raycaster();
+const controls = new OrbitControls(camera, renderer.domElement);
+const mouse = new THREE.Vector2;
+const objLoader = new OBJLoader();
+const mtlLoader = new MTLLoader();
+const gltfLoader = new GLTFLoader();
 
 function checkInsersects()
 {
@@ -18,57 +29,89 @@ window.onmousemove =  (evt) => {updateMouse(evt.clientX, evt.clientY);};
 window.onload = (evt) => {updateMouse(evt.clientX, evt.clientY);};
 window.onclick = () => {
     checkInsersects();
-    if (intersects.length == 0) return;
-    intersects[0].object.material.wireframe = !intersects[0].object.material.wireframe;
+    if (intersects.filter((object) => { return object.object.type != "GridHelper"; }).length == 0) return;
+
+    for (let i = 0; i < intersects.length; i++)
+    {
+        if (intersects[i].object.type == "GridHelper") continue;
+        intersects[i].object.material.wireframe = !intersects[i].object.material.wireframe;
+        break;
+    }
 }
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
-const raycaster = new THREE.Raycaster();
-const controls = new OrbitControls(camera, renderer.domElement);
-const mouse = new THREE.Vector2;
-const objLoader = new OBJLoader();
-const mtlLoader = new MTLLoader();
+async function loadGLTF(path)
+{
+    return new Promise((resolve, reject) => {
+    gltfLoader.load(
+        //'/static/objs/ccube.glb',
+        path,
 
-mtlLoader.load("/static/objs/thing.mtl", 
+        ( gltf ) => {
+            //scene.add(gltf.scene);
+            resolve(gltf);
+        },
+        (xhr) => {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded');},
+        (error) => {console.log(error); reject(error);}
+    );
+    });
+}
+
+async function loadObj(objPath, mtlPath)
+{
+    return new Promise((resolve, reject) => {
+    mtlLoader.load(mtlPath, 
     function( materials )
     {
+            materials.preload();
 
-        materials.preload();
+            objLoader.setMaterials(materials);
+            objLoader.load(
+                objPath,
+                ( object ) => {
+                    //scene.add(object);
+                    ressolve(object);
+                },
+                (xhr) => {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded');},
+                (error) => {console.log(error);}
+            );
+        },
+        (xhr) => {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded');},
+        (error) => {console.log(error);}
+    )
+    });
+}
 
-        objLoader.setMaterials(materials);
-        objLoader.load(
-            '/static/objs/thing.obj',
-            (object) => {scene.add(object);},
-            (xhr) => {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded');},
-            (error) => {console.log(error);}
-        );
-    },
-    (xhr) => {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded');},
-    (error) => {console.log(error);}
-)
+
+/* Add Light */
+const light = new THREE.AmbientLight( 0xF0F0F0 ); // soft white light
+scene.add( light );
 
 
+/* Add Grid */
 const gridHelper = new THREE.GridHelper(250, 250);
 scene.add(gridHelper);
 
+/* Setup Renderer */
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 
+/* Add Pizza Cube */
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const loader = new THREE.TextureLoader();
-loader.setPath("/static/img/");
-const textureCube = loader.load("game1_thumb.png");
+const textureLoader = new THREE.TextureLoader();
+textureLoader.setPath("/static/img/");
+const textureCube = textureLoader.load("game1_thumb.png");
 const material = new THREE.MeshBasicMaterial({color: 0xffffff, map: textureCube});
 const cube = new THREE.Mesh(geometry, material);
-
-scene.background = loader.load("wallpaper.jpg");
-
 scene.add(cube);
 
-camera.position.z = 5;
+
+/* Add Cube*/
+let ccube = await loadGLTF('/static/objs/ccube.glb');
+scene.add(ccube.scene);
+
+/* Add Background */
+scene.background = textureLoader.load("wallpaper.jpg");
 
 let speed = 0.1;
 
@@ -81,7 +124,7 @@ function animate()
 
     if (cube.position.z < -200 || cube.position.z > 200)
         speed *= -1;
-    cube.position.z += speed
+    cube.position.z += speed;
     
 
     renderer.render(scene, camera);

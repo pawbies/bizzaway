@@ -69,14 +69,14 @@ async function loadObj(objPath, mtlPath)
                 objPath,
                 ( object ) => {
                     //scene.add(object);
-                    ressolve(object);
+                    resolve(object);
                 },
                 (xhr) => {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded');},
                 (error) => {console.log(error);}
             );
         },
         (xhr) => {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded');},
-        (error) => {console.log(error);}
+        (error) => {console.log(error); reject(error);}
     )
     });
 }
@@ -130,4 +130,5 @@ function animate()
     renderer.render(scene, camera);
     controls.update();
 }
+
 animate();

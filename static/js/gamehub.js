@@ -9,7 +9,7 @@ let height = window.innerHeight;
 let intersects = [];
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); camera.position.z = 5;
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); camera.position.z = 2;
 const renderer = new THREE.WebGLRenderer();
 const raycaster = new THREE.Raycaster();
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -17,6 +17,8 @@ const mouse = new THREE.Vector2;
 const objLoader = new OBJLoader();
 const mtlLoader = new MTLLoader();
 const gltfLoader = new GLTFLoader();
+let gameObjects = [];
+let currentObject = 0;
 
 function checkInsersects()
 {
@@ -36,6 +38,45 @@ window.onclick = () => {
         if (intersects[i].object.type == "GridHelper") continue;
         intersects[i].object.material.wireframe = !intersects[i].object.material.wireframe;
         break;
+    }
+}
+window.onresize = () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
+window.onkeydown = (evt) => {
+
+    if (evt.key == "ArrowLeft")
+    {
+        if (currentObject <= 0)
+            currentObject = gameObjects.length-1;
+        else
+            currentObject--;
+
+
+    }
+    else if (evt.key == "ArrowRight")
+    {
+        if (currentObject >= gameObjects.length-1)
+            currentObject = 0;
+        else
+            currentObject++;
+    }
+
+    for (let i = 0; i < gameObjects.length; i++)
+    {
+        if (i == currentObject)
+        {
+            gameObjects[i].scene.visable = true;
+            gameObjects[i].scene.visible = true;
+        }
+        else
+        {
+            gameObjects[i].scene.visable = false;
+            gameObjects[i].scene.visible = false;
+        }
     }
 }
 
@@ -82,7 +123,7 @@ async function loadObj(objPath, mtlPath)
 
 
 /* Add Light */
-const light = new THREE.AmbientLight( 0xF0F0F0 );
+const light = new THREE.AmbientLight( 0xFFFFFF );
 scene.add( light );
 
 
@@ -90,41 +131,46 @@ scene.add( light );
 const gridHelper = new THREE.GridHelper(250, 250);
 scene.add(gridHelper);
 
+
 /* Setup Renderer */
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-
-/* Add Pizza Cube */
-const geometry = new THREE.BoxGeometry(1, 1, 1);
 const textureLoader = new THREE.TextureLoader();
 textureLoader.setPath("/static/img/");
-const textureCube = textureLoader.load("game1_thumb.png");
-const material = new THREE.MeshBasicMaterial({color: 0xffffff, map: textureCube});
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
 
 
-/* Add Cube*/
+
+/* Add pizza*/
+console.log("Pizza Slice by Quaternius (https://poly.pizza/m/CA4HtaaMJn)")
+let pizza = await loadGLTF('/static/objs/pizza.glb');
+pizza.scene.rotation.x = 1.5;
+gameObjects.push(pizza);
+scene.add(pizza.scene);
+
 let ccube = await loadGLTF('/static/objs/ccube.glb');
+gameObjects.push(ccube);
+ccube.scene.visable = false;
+ccube.scene.visible = false;
+console.log(ccube.scene.scale);
+ccube.scene.scale.x /= 2;
+ccube.scene.scale.y /= 2;
+ccube.scene.scale.z /= 2;
 scene.add(ccube.scene);
 
 /* Add Background */
 scene.background = textureLoader.load("wallpaper.jpg");
 
-let speed = 0.1;
+let speed = 0.01;
+
+console.log(controls.keys);
+controls.enabled = true;
 
 function animate()
 {
     requestAnimationFrame(animate);
-
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-
-    if (cube.position.z < -200 || cube.position.z > 200)
-        speed *= -1;
-    cube.position.z += speed;
     
+    gameObjects[currentObject].scene.rotation.z += speed;
 
     renderer.render(scene, camera);
     controls.update();

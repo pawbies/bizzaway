@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block title %}{% translate "Quiz" %}{% endblock %}
 
 {% block header %}{% translate "Quiz" %}{% endblock %}
 
 {% block content %}
+<p id="pizza_amount" hidden>{{  pizza_amount  }}</p>
 <div id="wrapper" class="w-full mx-auto p-8 bg-white dark:bg-black rounded-lg shadow-md">
     <p class="text-center text-3xl font-semibold mb-6">{% translate "Welcome to the Pizza Quiz" %}</p>
 
     <div id="questions" class="space-y-6">
-        <form>
+        <form id="f">
             {% for question in questions %}
             <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
                 <p class="text-lg text-center font-semibold mb-2">{{ question.title }}</p>
@@ -45,4 +47,6 @@
         </form>
     </div>
 </div>
+
+<script src="{% static 'js/quiz.js' %}"></script>
 {% endblock %}

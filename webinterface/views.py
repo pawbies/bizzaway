@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http.response import HttpResponseRedirect, Http404, HttpResponse
+from django.http.response import HttpResponseRedirect, Http404, HttpResponse, JsonResponse
 from django.http.request import HttpRequest
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -43,7 +43,15 @@ def order_successful(request, language_code):
 def quiz(request, language_code):
     activate(language_code)
     questions = Question.objects.all()
-    return render(request, "quiz.html", {"language": language_code, "questions": questions})
+    pizza_amount = len(Pizza.objects.all())
+    return render(request, "quiz.html", {"language": language_code, "questions": questions, "pizza_amount": pizza_amount})
+
+
+def get_pizza(request, language_code):
+    id =  int(request.GET.get("id"))
+    pizzas = [p.name for p in Pizza.objects.all()]
+    data = {"pizza_name": pizzas[id], "id": id}
+    return JsonResponse(data)
 
 
 def add_order(request: HttpRequest, language_code): #this is the only interesting thing

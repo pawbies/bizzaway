@@ -10,7 +10,7 @@ chmod +x tailwindcss-linux-x64
 mv tailwindcss-linux-x64 tailwindcss
 
 pip install django Pillow pytz
-./tailwindcss init
+#./tailwindcss init
 python manage.py makemigrations
 python manage.py migrate
 python manage.py test

@@ -1,6 +1,6 @@
 [submodule "static/lib/three.js"]
 	path = static/lib/three.js
 	url = https://github.com/mrdoob/three.js
-[submodule "game/templates/BizzawayGame"]
+[submodule "static/games/BizzawayGame"]
 	path = static/games/BizzawayGame
-	url = https://github.com/Dooklin/BizzawayGame
+	url = https://github.com/Dooklin/BizzawayGame.git

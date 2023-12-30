@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-20 10:10+0100\n"
+"POT-Creation-Date: 2023-12-30 14:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,8 +26,8 @@ msgstr "Bienvenidos a nuestra pizzería."
 msgid "Order"
 msgstr "Orden"
 
-#: webinterface/templates/base.html:25 webinterface/templates/quiz.html:4
-#: webinterface/templates/quiz.html:6
+#: webinterface/templates/base.html:25 webinterface/templates/quiz.html:5
+#: webinterface/templates/quiz.html:7
 msgid "Quiz"
 msgstr ""
 
@@ -98,44 +98,54 @@ msgstr "Notas adicionales (opcional"
 msgid "Place order"
 msgstr "Haga pedido"
 
-#: webinterface/templates/order_successful.html:6
+#: webinterface/templates/order_successful.html:7
 msgid "Thanks for your order"
 msgstr "Gracias por tu orden"
 
-#: webinterface/templates/order_successful.html:10
+#: webinterface/templates/order_successful.html:11
 msgid "Order Conformation"
 msgstr "Conformación del pedido"
 
-#: webinterface/templates/order_successful.html:12
+#: webinterface/templates/order_successful.html:13
 msgid "Your order was successful!"
 msgstr "Tu pedido fue exitoso"
 
-#: webinterface/templates/order_successful.html:13
+#: webinterface/templates/order_successful.html:14
 msgid "Your order is in about"
 msgstr "Su pedido estará listo en aproximadamente"
 
-#: webinterface/templates/order_successful.html:13
-msgid "read for pickup."
+#: webinterface/templates/order_successful.html:14
+#, fuzzy
+#| msgid "read for pickup."
+msgid " minutes ready for pickup."
 msgstr "para ser recogido."
 
-#: webinterface/templates/order_successful.html:14
+#: webinterface/templates/order_successful.html:15
 msgid "Thanks for choosing Pizzaway."
 msgstr "Gracias por elegir Pizzaway"
 
-#: webinterface/templates/order_successful.html:15
+#: webinterface/templates/order_successful.html:16
 msgid "We're looking forward to serving you."
 msgstr "Estamos deseando servirle"
 
-#: webinterface/templates/order_successful.html:19
+#: webinterface/templates/order_successful.html:17
+msgid "You can try out our games while waiting: "
+msgstr ""
+
+#: webinterface/templates/order_successful.html:21
 msgid "Back to the start"
 msgstr "De vuelta al principio"
 
-#: webinterface/templates/quiz.html:10
+#: webinterface/templates/quiz.html:12
 #, fuzzy
 #| msgid "Welcome to our Pizzeria"
 msgid "Welcome to the Pizza Quiz"
 msgstr "Bienvenidos a nuestra pizzería."
 
-#: webinterface/templates/quiz.html:44
+#: webinterface/templates/quiz.html:52
 msgid "Check Results"
+msgstr ""
+
+#: webinterface/views.py:53
+msgid "Hm very interesting..."
 msgstr ""

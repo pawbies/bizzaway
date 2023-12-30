@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static%}
 
 {% block title %}Order successful{% endblock %}
 
@@ -10,9 +11,10 @@
         <h2 class="text-3xl font-bold mb-4 text-center">{% translate "Order Conformation" %}</h2>
         <div class="text-center">
             <p class="text-xl">{% translate "Your order was successful!" %}</p>
-            <p class="text-xl">{% translate "Your order is in about" %} {{  time  }} {% translate "read for pickup." %}</p>
+            <p class="text-xl">{% translate "Your order is in about" %} {{  time  }} {% translate " minutes ready for pickup." %}</p>
             <p class="text-xl">{% translate "Thanks for choosing Pizzaway." %}</p>
             <p class="text-xl">{% translate "We're looking forward to serving you." %}</p>
+            <p id="offer" class="text-xl hidden">{% translate "You can try out our games while waiting: " %} <a class="text-blue-400" href="{% url 'hub' %}" >Game Hub</a></p>
         </div>
         <div class="flex justify-center mt-6">
             <a href="{% url 'index' language %}" class="bg-pizza-red text-white font-semibold py-2 px-4 rounded-md hover:bg-pizza-red-dark transition duration-300 ease-in-out">
@@ -20,4 +22,6 @@
             </a>
         </div>
     </div>
+
+    <script src="{% static 'js/offer_games.js' %}"></script>
 {% endblock %}

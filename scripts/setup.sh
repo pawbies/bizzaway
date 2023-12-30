@@ -14,3 +14,6 @@ pip install django Pillow pytz
 python manage.py makemigrations
 python manage.py migrate
 python manage.py test
+
+cd static/games/connect/
+make wasm

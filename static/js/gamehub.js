@@ -1,3 +1,8 @@
+const debug = false;
+
+
+
+
 import * as THREE from '../lib/three.js/build/three.module.js';
 import { OrbitControls } from './CustomOrbitControls.js'
 import { OBJLoader } from './CustomOBJLoader.js'
@@ -12,12 +17,16 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); camera.position.z = 2;
 const renderer = new THREE.WebGLRenderer();
 const raycaster = new THREE.Raycaster();
-const controls = new OrbitControls(camera, renderer.domElement);
+let controls;
+if (debug) {
+controls = new OrbitControls(camera, renderer.domElement);
+}
 const mouse = new THREE.Vector2;
 const objLoader = new OBJLoader();
 const mtlLoader = new MTLLoader();
 const gltfLoader = new GLTFLoader();
 let gameObjects = [];
+let gameUrls = [];
 let currentObject = 0;
 
 function checkInsersects()
@@ -30,6 +39,9 @@ function updateMouse(x, y) { mouse.set((x/width) * 2 -1, -(y / height) * 2 + 1);
 window.onmousemove =  (evt) => {updateMouse(evt.clientX, evt.clientY);};
 window.onload = (evt) => {updateMouse(evt.clientX, evt.clientY);};
 window.onclick = () => {
+    if (debug)
+    {
+
     checkInsersects();
     if (intersects.filter((object) => { return object.object.type != "GridHelper"; }).length == 0) return;
 
@@ -38,6 +50,7 @@ window.onclick = () => {
         if (intersects[i].object.type == "GridHelper") continue;
         intersects[i].object.material.wireframe = !intersects[i].object.material.wireframe;
         break;
+    }
     }
 }
 window.onresize = () => {
@@ -64,6 +77,11 @@ window.onkeydown = (evt) => {
         else
             currentObject++;
     }
+    else if (evt.key == "Enter")
+    {
+        location.replace(gameUrls[currentObject]);
+    }
+
 
     for (let i = 0; i < gameObjects.length; i++)
     {
@@ -146,10 +164,12 @@ console.log("Pizza Slice by Quaternius (https://poly.pizza/m/CA4HtaaMJn)")
 let pizza = await loadGLTF('/static/objs/pizza.glb');
 pizza.scene.rotation.x = 1.5;
 gameObjects.push(pizza);
+gameUrls.push("/game/");
 scene.add(pizza.scene);
 
 let ccube = await loadGLTF('/static/objs/ccube.glb');
 gameObjects.push(ccube);
+gameUrls.push("/game/dooklin_game/")
 ccube.scene.visable = false;
 ccube.scene.visible = false;
 console.log(ccube.scene.scale);
@@ -163,8 +183,10 @@ scene.background = textureLoader.load("wallpaper.jpg");
 
 let speed = 0.01;
 
+if (debug) {
 console.log(controls.keys);
 controls.enabled = true;
+}
 
 function animate()
 {
@@ -173,7 +195,8 @@ function animate()
     gameObjects[currentObject].scene.rotation.z += speed;
 
     renderer.render(scene, camera);
-    controls.update();
+
+    if (debug) controls.update();
 }
 
 animate();

@@ -1,6 +1,8 @@
 function processData(data)
 {
-    console.log(data);
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result_header").innerHTML = data.pizza_name;
+    document.getElementById("result_subtitle").innerHTML = data.sub;
 }
 
 

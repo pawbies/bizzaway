@@ -50,7 +50,8 @@ def quiz(request, language_code):
 def get_pizza(request, language_code):
     id =  int(request.GET.get("id"))
     pizzas = [p.name for p in Pizza.objects.all()]
-    data = {"pizza_name": pizzas[id], "id": id}
+    subtitle = _("Hm very interesting...")
+    data = {"pizza_name": pizzas[id], "id": id, "sub": subtitle}
     return JsonResponse(data)
 
 

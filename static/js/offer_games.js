@@ -1,4 +1,1 @@
-if (innerWidth >= 768) 
-{
-    document.getElementById("offer").style.display = "block";
-}
+if (innerWidth >= 768) document.getElementById("offer").style.display = "block";

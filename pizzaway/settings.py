@@ -21,7 +21,7 @@ DEBUG = True
 
 
 #valid domain names
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["20.16.146.158"]
 
 
 #all the used apps

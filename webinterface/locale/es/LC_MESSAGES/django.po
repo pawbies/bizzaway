@@ -29,7 +29,7 @@ msgstr "Orden"
 #: webinterface/templates/base.html:25 webinterface/templates/quiz.html:5
 #: webinterface/templates/quiz.html:7
 msgid "Quiz"
-msgstr ""
+msgstr "Prueba"
 
 #: webinterface/templates/base.html:28
 msgid "Employees"
@@ -130,7 +130,7 @@ msgstr "Estamos deseando servirle"
 
 #: webinterface/templates/order_successful.html:17
 msgid "You can try out our games while waiting: "
-msgstr ""
+msgstr "Puedes probar nuestros juegos mientras esperas:"
 
 #: webinterface/templates/order_successful.html:21
 msgid "Back to the start"
@@ -144,8 +144,8 @@ msgstr "Bienvenidos a nuestra pizzería."
 
 #: webinterface/templates/quiz.html:52
 msgid "Check Results"
-msgstr ""
+msgstr "Comprobar resultados"
 
 #: webinterface/views.py:53
 msgid "Hm very interesting..."
-msgstr ""
+msgstr "Mmmm muy interesante..."

@@ -19,12 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: pizzaway/settings.py:143
 msgid "German"
-msgstr ""
+msgstr "Alemán"
 
 #: pizzaway/settings.py:144
 msgid "English"
-msgstr ""
+msgstr "Alemán"
 
 #: pizzaway/settings.py:145
 msgid "Spanish"
-msgstr ""
+msgstr "Español"

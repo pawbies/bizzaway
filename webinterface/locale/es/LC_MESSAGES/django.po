@@ -118,7 +118,7 @@ msgstr "Su pedido estará listo en aproximadamente"
 #, fuzzy
 #| msgid "read for pickup."
 msgid " minutes ready for pickup."
-msgstr "para ser recogido."
+msgstr "minutos listo para ser recogido."
 
 #: webinterface/templates/order_successful.html:15
 msgid "Thanks for choosing Pizzaway."

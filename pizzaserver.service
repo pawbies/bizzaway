@@ -1,0 +1,12 @@
+[Unit]
+Description=Systemd Unit to run the pizzaway server
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+WorkingDirectory=/home/choneyfox/bizzaway
+ExecStart=daphne -b 10.0.0.4 -p 80 pizzaway.asgi:application
+
+[Install]
+WantedBy=multi-user.target

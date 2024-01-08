@@ -1,7 +1,6 @@
 # bizzaway
 
-soooo....
-yeah welcome to pizzaway
+welcome to pizzaway
 
 
 Short description:  
@@ -14,7 +13,7 @@ and that's what this here is
 the best website for the best pizzeria 
 
 
-Dooklin who is also very cool is the other boy working on this thing
+Dooklin who is also very cool is the other guy working on this thing
 
 
 The Basic idea is:   
@@ -24,6 +23,3 @@ The Basic idea is:
 
 anyway, this stuff better get us a good grade or else i'll cry   
 cya
-
-hello my love 
-or smth idk

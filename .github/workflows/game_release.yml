@@ -20,13 +20,13 @@ jobs:
 
     - name: Build and Create Binary
       run: |
-        cd game/static
+        cd static/games/connect
         make
         cd ../..
 
     - name: Create Release Archive
       run: |
-        tar -czvf game.tar.gz --files-from <(echo -e "game/static/game\n./game/static/res/")
+        tar -czvf game.tar.gz --files-from <(echo -e "static/games/connect/game\n.static/games/connect/res/")
       shell: bash
 
     - name: Create Release
